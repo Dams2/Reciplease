@@ -26,7 +26,6 @@ protocol SearchViewControllerDelegate: class {
 extension Screens {
     func createSearchViewController(delegate: SearchViewControllerDelegate?) -> UIViewController {
         let viewController = storyboard.instantiateViewController(withIdentifier: "SearchViewController") as! SearchViewController
-        
         let viewModel = SearchViewModel(delegate: delegate)
         viewController.viewModel = viewModel
         return viewController
@@ -41,8 +40,11 @@ extension Screens {
 }
 
 extension Screens {
-    func createRecipesResultViewController() -> UIViewController {
-        let viewController = storyboard.instantiateViewController(withIdentifier: "RecipesResultViewController") as! RecipesResultViewController
+    func createRecipesListViewController() -> UIViewController {
+        let viewController = storyboard.instantiateViewController(withIdentifier: "RecipesListViewController") as! RecipesListViewController
+        let repository = RecipesListRepository(client: context.client)
+        let viewModel = RecipesListViewModel(repository: repository)
+        viewController.viewModel = viewModel
         return viewController
     }
 }

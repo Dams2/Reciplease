@@ -1,5 +1,5 @@
 //
-//  RecipesResultDataSources.swift
+//  RecipesListDataSources.swift
 //  Reciplease
 //
 //  Created by Damien Rojo on 24.03.20.
@@ -8,14 +8,14 @@
 
 import UIKit
 
-final class RecipesResultDataSources: NSObject, UITableViewDelegate, UITableViewDataSource {
+final class RecipesListDataSources: NSObject, UITableViewDelegate, UITableViewDataSource {
     
-    typealias Item = SearchViewModel.Recipes
+    typealias Item = RecipesListViewModel.Recipes
     
     private var items: [Item] = []
 
-    func update(with items: [Item]) {
-        self.items = items
+    func update(with item: [Item]) {
+        self.items = item
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -26,9 +26,9 @@ final class RecipesResultDataSources: NSObject, UITableViewDelegate, UITableView
         guard items.count > indexPath.item else {
             return UITableViewCell()
         }
-
+        
         let recipe = items[indexPath.item]
-        let cell = tableView.dequeueReusableCell(withIdentifier: "RecipesResultTableViewCell", for: indexPath) as! RecipesResultTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "RecipesListTableViewCell", for: indexPath) as! RecipesListTableViewCell
         cell.configure(with: recipe)
         return cell
     }

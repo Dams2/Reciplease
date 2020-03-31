@@ -13,7 +13,7 @@ enum RequestType: String {
     case POST = "POST"
 }
 
-final class HTTPClient {
+final class HTTPClient: HTTPClientType {
     
     private let engine: HTTPEngine
     

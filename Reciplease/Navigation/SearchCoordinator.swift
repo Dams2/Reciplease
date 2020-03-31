@@ -38,7 +38,8 @@ final class SearchCoordinator {
     }
     
     fileprivate func showResult() {
-        // Show la liste
+        let viewController = screens.createRecipesListViewController()
+        presenter.viewControllers = [viewController]
     }
 }
 

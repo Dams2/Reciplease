@@ -13,9 +13,10 @@ final class SearchViewModel {
     // MARK: - Properties
 
     private weak var delegate: SearchViewControllerDelegate?
-
+    
     init(delegate: SearchViewControllerDelegate?) {
         self.delegate = delegate
+
     }
     // MARK: - Outputs
     
@@ -32,21 +33,7 @@ final class SearchViewModel {
     var ingredientsText: ((String) -> Void)?
     
     var searchForRecipesText: ((String) -> Void)?
-    
-    var items: (([Recipes]) -> Void)?
-    
-    struct Recipes {
-        let ontologyIdentifier: String
-        let title: String
-        let image: String
-        let sourceSiteIdentifier: String
-        let originalRecipeURL: String
-//        let totalTime: String
-        let numberOfServings: String
-        let cautions, ingredientLines: String
-        let ingredients: String
-        let calories, totalWeight: String
-    }
+
     
     // MARK: - Inputs
     
@@ -61,7 +48,7 @@ final class SearchViewModel {
     
     }
     
-    func didPressSearchForRecipes() {
+    func didPressSearch() {
         delegate?.didPressSearch()
     }
 }

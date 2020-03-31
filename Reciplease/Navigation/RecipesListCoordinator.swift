@@ -1,5 +1,5 @@
 //
-//  RecipesResultCoordinator.swift
+//  RecipesListCoordinator.swift
 //  Reciplease
 //
 //  Created by Damien Rojo on 24.03.20.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class RecipesResultCoordinator {
+final class RecipesListCoordinator {
     
     // MARK: - Properties
     
@@ -33,7 +33,7 @@ final class RecipesResultCoordinator {
     }
 
     private func showRecipesResult() {
-        let viewController = screens.createRecipesResultViewController()
+        let viewController = screens.createRecipesListViewController()
         presenter.viewControllers = [viewController]
      }
 }

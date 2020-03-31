@@ -1,5 +1,5 @@
 //
-//  SearchRepository.swift
+//  RecipesListRepository.swift
 //  Reciplease
 //
 //  Created by Damien Rojo on 21.03.20.
@@ -8,8 +8,8 @@
 
 import Foundation
 
-protocol SearchRepositoryType: class {
-    func getRecipes(callback: @escaping (RecipesResponse) -> Void)
+protocol RecipesListRepositoryType: class {
+    func getRecipes(for food: String, callback: @escaping (RecipesResponse) -> Void)
 }
 
 protocol HTTPClientType: class {
@@ -20,18 +20,18 @@ protocol HTTPClientType: class {
                     completion: @escaping (T) -> Void) where T : Decodable, T : Encodable
 }
 
-final class SearchRepository: SearchRepositoryType {
+final class RecipesListRepository: RecipesListRepositoryType {
     
     let client: HTTPClientType
         
-     let token = RequestCancellationToken()
-    
-     init(client: HTTPClientType!) {
-        self.client = client
-     }
+    let token = RequestCancellationToken()
 
-    func getRecipes(callback: @escaping (RecipesResponse) -> Void) {
-        let stringURL = "https://api.edamam.com/search?q=chicken&app_id=10134b4c&app_key=17290abcde8ff15c43296fb17008d218"
+    init(client: HTTPClientType) {
+    self.client = client
+    }
+
+    func getRecipes(for food: String, callback: @escaping (RecipesResponse) -> Void) {
+        let stringURL = "https://api.edamam.com/search?q=\(food)&app_id=10134b4c&app_key=17290abcde8ff15c43296fb17008d218"
         guard let url = URL(string: stringURL) else { return }
         client.request(type: RecipesResponse.self,
                        requestType: .GET,

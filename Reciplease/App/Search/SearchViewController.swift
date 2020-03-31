@@ -65,7 +65,7 @@ final class SearchViewController: UIViewController {
         
     }
     
-    @IBAction func didPressSearchForRecipesButton(_ sender: UIButton) {
-        viewModel.didPressSearchForRecipes()
+    @IBAction func didPressSearchButton(_ sender: UIButton) {
+        viewModel.didPressSearch()
     }
 }
