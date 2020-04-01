@@ -11,7 +11,7 @@ import UIKit
 final class RecipesListDataSources: NSObject, UITableViewDelegate, UITableViewDataSource {
     
     typealias Item = RecipesListViewModel.Recipes
-    
+        
     private var items: [Item] = []
 
     func update(with item: [Item]) {
@@ -26,10 +26,17 @@ final class RecipesListDataSources: NSObject, UITableViewDelegate, UITableViewDa
         guard items.count > indexPath.item else {
             return UITableViewCell()
         }
-        
+            
         let recipe = items[indexPath.item]
         let cell = tableView.dequeueReusableCell(withIdentifier: "RecipesListTableViewCell", for: indexPath) as! RecipesListTableViewCell
         cell.configure(with: recipe)
+
         return cell
     }
+    
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//
+//                
+//        return
+//    }
 }

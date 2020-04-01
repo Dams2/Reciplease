@@ -16,27 +16,43 @@ final class SearchViewModel {
     
     init(delegate: SearchViewControllerDelegate?) {
         self.delegate = delegate
-
     }
+    
     // MARK: - Outputs
     
     var whatsInYourFridgeText: ((String) -> Void)?
-    
+
     var searchPlaceholderText: ((String) -> Void)?
-    
+
     var addText: ((String) -> Void)?
-    
+
     var yourIngredientsText: ((String) -> Void)?
-    
+
     var clearText: ((String) -> Void)?
-    
+
     var ingredientsText: ((String) -> Void)?
-    
+
     var searchForRecipesText: ((String) -> Void)?
 
-    
+    var ingredientsList: [String] = [] {
+        didSet {
+            let text = ingredientsList
+            ingredientsText?("- \(text.joined(separator: "\n\n- "))")
+        }
+    }
+
+    // MARK: - Helpers
+
+    private func appendIngredients(searchText: String, ingredients: [String]) {
+        if searchText.isEmpty || ingredients.contains(searchText) {
+            return
+        } else {
+            ingredientsList.append(searchText)
+        }
+    }
+
     // MARK: - Inputs
-    
+
     func viewDidLoad() {
         whatsInYourFridgeText?("What's in your fridge ?")
         searchPlaceholderText?("Lemon, Cheese, Sausages...")
@@ -45,9 +61,17 @@ final class SearchViewModel {
         clearText?("Clear")
         ingredientsText?("add ingredients...")
         searchForRecipesText?("Search for recipes")
-    
     }
-    
+
+    func didPressAdd(searchText: String) {
+        appendIngredients(searchText: searchText, ingredients: ingredientsList)
+    }
+
+    func didPressClear() {
+        ingredientsList = [""]
+        ingredientsText?("add ingredients...")
+    }
+
     func didPressSearch() {
         delegate?.didPressSearch()
     }

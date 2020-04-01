@@ -14,17 +14,19 @@ final class SearchViewController: UIViewController {
     
     @IBOutlet weak var whatsInYourFridgeLabel: UILabel?
     
-    @IBOutlet weak var addButton: UIButton? {
-        didSet {
-//            addButton?.layer.cornerRadius = 15
-        }
-    }
+    @IBOutlet weak var addButton: UIButton? 
     
     @IBOutlet weak var searchBar: UISearchBar! {
         didSet {
             searchBar.searchTextField.backgroundColor = .white
         }
     }
+    
+    @IBOutlet weak var yourIngredientLabel: UILabel!
+    
+    @IBOutlet weak var clearButton: UIButton!
+    
+    @IBOutlet weak var ingredientsTextView: UITextView!
     
     @IBOutlet weak var searchForRecipesButton: UIButton!
     
@@ -57,12 +59,30 @@ final class SearchViewController: UIViewController {
         viewModel.addText = { text in
             self.addButton?.setTitle(text, for: .normal)
         }
+        
+        viewModel.yourIngredientsText = { text in
+            self.yourIngredientLabel.text = text
+        }
+        
+        viewModel.clearText = { text in
+            self.clearButton?.setTitle(text, for: .normal)
+        }
+        
+        viewModel.ingredientsText = { text in
+            self.ingredientsTextView.text = text
+        }
     }
     
     // MARK: - Actions
     
     @IBAction func didPressAddButton(_ sender: UIButton) {
-        
+        guard let searchText = searchBar.text else { return }
+        viewModel.didPressAdd(searchText: searchText)
+        searchBar.text = ""
+    }
+    
+    @IBAction func didPressClearButton(_ sender: UIButton) {
+        viewModel.didPressClear()
     }
     
     @IBAction func didPressSearchButton(_ sender: UIButton) {

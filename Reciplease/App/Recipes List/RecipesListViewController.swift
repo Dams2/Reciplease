@@ -19,9 +19,7 @@ final class RecipesListViewController: UIViewController {
     // MARK: - Outlets
     
     @IBOutlet weak var tableView: UITableView!
-    
-    @IBOutlet weak var backButton: UIBarButtonItem!
-    
+
     // MARK: - View life cycle
     
     override func viewDidLoad() {
@@ -50,8 +48,7 @@ final class RecipesListViewController: UIViewController {
     
     // MARK: - Actions
     
-    @IBAction func didPressBackButton(_ sender: UIBarButtonItem) {
-        
+    func didPressDetail() {
+        viewModel.didPressDetail()
     }
-    
 }

@@ -9,20 +9,42 @@
 import UIKit
 
 final class RecipesListTableViewCell: UITableViewCell {
-    
+
+    // MARK: - Outlets
+
     @IBOutlet weak var recipeImageView: UIImageView!
-    
+
     @IBOutlet weak var recipeTitleLabel: UILabel!
-    
+
     @IBOutlet weak var recipeIngredientLinesLabel: UILabel!
+
+    @IBOutlet weak var view: UIView! {
+        didSet {
+            view.layer.borderWidth = 1
+            view.layer.cornerRadius = 5
+            view.layer.borderColor = UIColor.white.cgColor
+        }
+    }
     
-    @IBOutlet weak var View: UIView!
+    @IBOutlet weak var likesLabel: UILabel!
+    
+    @IBOutlet weak var likesImageView: UIImageView!
+    
+    @IBOutlet weak var timeLabel: UILabel!
+    
+    @IBOutlet weak var timeImageView: UIImageView!
+    
+    // MARK: - Actions
     
     func configure(with recipe: RecipesListViewModel.Recipes) {
         convertImage(with: recipe)
+        timeLabel.text = recipe.totalTime
         recipeTitleLabel.text = recipe.title
         recipeIngredientLinesLabel.text = recipe.ingredientLines
+        addGradient()
     }
+
+    // MARK: - Helpers
     
     private func convertImage(with recipe: RecipesListViewModel.Recipes) {
         if let url = URL(string: recipe.image) {
@@ -34,14 +56,18 @@ final class RecipesListTableViewCell: UITableViewCell {
             }
         }
     }
-    
-//    private func makePictureConstraints(for image: UIImageView, with view: UIView ) {
-//        image.translatesAutoresizingMaskIntoConstraints = false
-//        NSLayoutConstraint.activate([
-//            image.leftAnchor.constraint(equalTo: view.leftAnchor),
-//            image.rightAnchor.constraint(equalTo: view.rightAnchor),
-//            image.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-//            image.topAnchor.constraint(equalTo: view.topAnchor)
-//        ])
-//    }
+
+    private func addGradient() {
+        let view = UIView(frame: recipeImageView.frame)
+        let gradient = CAGradientLayer()
+
+        gradient.frame = view.frame
+        gradient.colors = [gradient, UIColor.black.cgColor]
+        gradient.locations = [0.0, 1]
+
+        view.layer.insertSublayer(gradient, at: 0)
+
+        recipeImageView.addSubview(view)
+        recipeImageView.bringSubviewToFront(view)
+    }
 }

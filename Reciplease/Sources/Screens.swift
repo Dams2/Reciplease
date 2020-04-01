@@ -32,19 +32,23 @@ extension Screens {
     }
 }
 
+protocol RecipesListViewControllerDelegate: class {
+    func didPressDetail()
+}
+
 extension Screens {
-    func createFavoriteViewController() -> UIViewController {
-        let viewController = storyboard.instantiateViewController(withIdentifier: "FavoriteViewController") as! FavoriteViewController
+    func createRecipesListViewController(delegate: RecipesListViewControllerDelegate?) -> UIViewController {
+        let viewController = storyboard.instantiateViewController(withIdentifier: "RecipesListViewController") as! RecipesListViewController
+        let repository = RecipesListRepository(client: context.client)
+        let viewModel = RecipesListViewModel(delegate: delegate, repository: repository)
+        viewController.viewModel = viewModel
         return viewController
     }
 }
 
 extension Screens {
-    func createRecipesListViewController() -> UIViewController {
-        let viewController = storyboard.instantiateViewController(withIdentifier: "RecipesListViewController") as! RecipesListViewController
-        let repository = RecipesListRepository(client: context.client)
-        let viewModel = RecipesListViewModel(repository: repository)
-        viewController.viewModel = viewModel
+    func createDetailViewController() -> UIViewController {
+        let viewController = storyboard.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
         return viewController
     }
 }

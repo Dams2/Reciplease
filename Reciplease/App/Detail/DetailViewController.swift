@@ -24,22 +24,6 @@ final class DetailViewController: UIViewController {
         
     }
     
-    func configure(with recipe: RecipesListViewModel.Recipes) {
-        convertImage(with: recipe)
-        recipeTitleLabel.text = recipe.title
-    }
-       
-    func convertImage(with recipe: RecipesListViewModel.Recipes) {
-       if let url = URL(string: recipe.image) {
-           do {
-               let data = try Data(contentsOf: url)
-               recipeImageView.image = UIImage(data: data)
-           } catch let error {
-               print("ERROR \(error.localizedDescription)")
-           }
-       }
-    }
-    
     // MARK: - Inputs
     
     

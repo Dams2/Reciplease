@@ -10,4 +10,11 @@ import Foundation
 
 final class DetailViewModel {
     
+    // MARK: - Outputs
+    
+    
+    
+    // MARK: - Inputs
+    
+    
 }

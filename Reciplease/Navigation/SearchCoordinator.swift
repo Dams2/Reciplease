@@ -38,7 +38,7 @@ final class SearchCoordinator {
     }
     
     fileprivate func showResult() {
-        let viewController = screens.createRecipesListViewController()
+        let viewController = screens.createRecipesListViewController(delegate: nil)
         presenter.viewControllers = [viewController]
     }
 }

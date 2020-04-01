@@ -1,5 +1,5 @@
 //
-//  RecipeResponse.swift
+//  RecipesResponse.swift
 //  Reciplease
 //
 //  Created by Damien Rojo on 21.03.20.
@@ -12,6 +12,25 @@
 //   let recipesResponse = try? newJSONDecoder().decode(RecipesResponse.self, from: jsonData)
 
 import Foundation
+
+extension RecipesResponse: Equatable {}
+
+extension Hit: Equatable {}
+
+extension Recipe: Equatable {}
+
+extension Digest: Equatable {}
+
+extension SchemaOrgTag: Equatable {}
+
+extension Unit: Equatable {}
+
+extension HealthLabel: Equatable {}
+
+extension Ingredient: Equatable {}
+
+extension Total: Equatable {}
+
 
 // MARK: - RecipesResponse
 struct RecipesResponse: Codable {
