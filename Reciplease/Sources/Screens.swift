@@ -33,7 +33,7 @@ extension Screens {
 }
 
 protocol RecipesListViewControllerDelegate: class {
-    func didPressDetail()
+    func didSelect(_ recipe: Recipe)
 }
 
 extension Screens {
@@ -46,9 +46,21 @@ extension Screens {
     }
 }
 
+//extension Screens {
+//    func createFavoriteRecipesListViewController(delegate: RecipesListViewControllerDelegate?) -> UIViewController {
+//        let viewController = storyboard.instantiateViewController(withIdentifier: "RecipesListViewController") as! RecipesListViewController
+//        let repository = RecipesListRepository(client: context.stack)
+//        let viewModel = RecipesListViewModel(delegate: delegate, repository: repository)
+//        viewController.viewModel = viewModel
+//        return viewController
+//    }
+//}
+
 extension Screens {
-    func createDetailViewController() -> UIViewController {
+    func createDetailViewController(for recipe: Recipe) -> UIViewController {
         let viewController = storyboard.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
+        let viewModel = DetailViewModel(recipe: recipe)
+        viewController.viewModel = viewModel
         return viewController
     }
 }

@@ -37,6 +37,7 @@ final class SearchViewModel {
     var ingredientsList: [String] = [] {
         didSet {
             let text = ingredientsList
+            print(text)
             ingredientsText?("- \(text.joined(separator: "\n\n- "))")
         }
     }
@@ -55,7 +56,7 @@ final class SearchViewModel {
 
     func viewDidLoad() {
         whatsInYourFridgeText?("What's in your fridge ?")
-        searchPlaceholderText?("Lemon, Cheese, Sausages...")
+        searchPlaceholderText?("Lemon, Cheese...")
         addText?("Add")
         yourIngredientsText?("Your ingredients :")
         clearText?("Clear")
@@ -68,7 +69,7 @@ final class SearchViewModel {
     }
 
     func didPressClear() {
-        ingredientsList = [""]
+        ingredientsList = []
         ingredientsText?("add ingredients...")
     }
 

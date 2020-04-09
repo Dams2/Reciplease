@@ -24,7 +24,12 @@ final class SearchViewController: UIViewController {
     
     @IBOutlet weak var yourIngredientLabel: UILabel!
     
-    @IBOutlet weak var clearButton: UIButton!
+    @IBOutlet weak var clearButton: UIButton! {
+        didSet {
+            clearButton.layer.borderWidth = 1
+            clearButton.layer.cornerRadius = 5
+        }
+    }
     
     @IBOutlet weak var ingredientsTextView: UITextView!
     
@@ -48,28 +53,40 @@ final class SearchViewController: UIViewController {
     // MARK: - Helpers
     
     private func bind(to viewModel: SearchViewModel) {
-        viewModel.whatsInYourFridgeText = { text in
-            self.whatsInYourFridgeLabel?.text = text
+        viewModel.whatsInYourFridgeText = { [weak self] text in
+            DispatchQueue.main.async {
+                self?.whatsInYourFridgeLabel?.text = text
+            }
         }
         
-        viewModel.searchPlaceholderText = { placeholder in
-            self.searchBar.placeholder = placeholder
+        viewModel.searchPlaceholderText = { [weak self] placeholder in
+            DispatchQueue.main.async {
+                self?.searchBar.placeholder = placeholder
+            }
         }
         
-        viewModel.addText = { text in
-            self.addButton?.setTitle(text, for: .normal)
+        viewModel.addText = { [weak self] text in
+            DispatchQueue.main.async {
+                self?.addButton?.setTitle(text, for: .normal)
+            }
         }
         
-        viewModel.yourIngredientsText = { text in
-            self.yourIngredientLabel.text = text
+        viewModel.yourIngredientsText = {[weak self] text in
+            DispatchQueue.main.async {
+                self?.yourIngredientLabel.text = text
+            }
         }
         
-        viewModel.clearText = { text in
-            self.clearButton?.setTitle(text, for: .normal)
+        viewModel.clearText = { [weak self] text in
+            DispatchQueue.main.async {
+                self?.clearButton?.setTitle(text, for: .normal)
+            }
         }
         
-        viewModel.ingredientsText = { text in
-            self.ingredientsTextView.text = text
+        viewModel.ingredientsText = { [weak self] text in
+            DispatchQueue.main.async {
+                self?.ingredientsTextView.text = text
+            }
         }
     }
     

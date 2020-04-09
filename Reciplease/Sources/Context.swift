@@ -13,11 +13,14 @@ final class Context {
     // MARK: - Properties
 
     public let client: HTTPClient
+    
+    public let stack: CoredataStack
 
     // MARK: - Init
 
     init() {
         let engine = HTTPEngine(configuration: .default)
         client = HTTPClient(engine: engine)
+        stack = CoredataStack()
     }
 }

@@ -27,7 +27,7 @@ final class RecipesListRepository: RecipesListRepositoryType {
     let token = RequestCancellationToken()
 
     init(client: HTTPClientType) {
-    self.client = client
+        self.client = client
     }
 
     func getRecipes(for food: String, callback: @escaping (RecipesResponse) -> Void) {

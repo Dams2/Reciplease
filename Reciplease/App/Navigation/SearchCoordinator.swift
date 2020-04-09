@@ -15,10 +15,7 @@ final class SearchCoordinator {
     private let presenter: UINavigationController
     
     private let screens: Screens
-    
-    private var searchViewController: UIViewController?
-    
-    
+        
     // MARK: - Initializer
     
     init(presenter: UINavigationController, screens: Screens) {
@@ -37,14 +34,27 @@ final class SearchCoordinator {
         presenter.viewControllers = [viewController]
     }
     
-    fileprivate func showResult() {
-        let viewController = screens.createRecipesListViewController(delegate: nil)
-        presenter.viewControllers = [viewController]
+    private func showRecipesResult() {
+        let viewController = screens.createRecipesListViewController(delegate: self)
+        presenter.pushViewController(viewController, animated: true)
+    }
+
+    private func showDetails(for recipe: Recipe) {
+        let viewController = screens.createDetailViewController(for: recipe)
+        presenter.pushViewController(viewController, animated: true)
     }
 }
 
 extension SearchCoordinator: SearchViewControllerDelegate {
     func didPressSearch() {
-        showResult()
+        showRecipesResult()
     }
 }
+
+extension SearchCoordinator: RecipesListViewControllerDelegate {
+    func didSelect(_ recipe: Recipe) {
+        showDetails(for: recipe)
+    }
+}
+
+

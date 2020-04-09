@@ -33,13 +33,13 @@ final class HTTPEngine {
                 callback(data, nil, URLSessionEngineError.invalideURLResponseType)
             }
         }
-        
+
         task.resume()
         token.willDealocate = {
             task.cancel()
         }
     }
-    
+
     deinit {
         session.invalidateAndCancel()
     }

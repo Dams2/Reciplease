@@ -1,21 +1,20 @@
 //
-//  DetailCoordinator.swift
+//  RecipesListCoordinator.swift
 //  Reciplease
 //
-//  Created by Damien Rojo on 31.03.20.
+//  Created by Damien Rojo on 24.03.20.
 //  Copyright © 2020 Damien Rojo. All rights reserved.
 //
 
 import UIKit
 
-final class DetailCoordinator {
-
+final class FavoritesCoordinator {
+    
     // MARK: - Properties
     
     private let presenter: UINavigationController
 
     private let screens: Screens
-
 
     // MARK: - Initializer
 
@@ -23,15 +22,17 @@ final class DetailCoordinator {
         self.presenter = presenter
         self.screens = screens
     }
-     
+
     // MARK: - Coodinator
 
-    func start() {
-        showDetail()
-    }
-
-    private func showDetail() {
-        let viewController = screens.createDetailViewController()
+    private func showDetail(for recipe: Recipe) {
+        let viewController = screens.createDetailViewController(for: recipe)
         presenter.viewControllers = [viewController]
-     }
+    }
+}
+
+extension FavoritesCoordinator: RecipesListViewControllerDelegate {
+    func didSelect(_ item: Recipe) {
+        showDetail(for: item)
+    }
 }

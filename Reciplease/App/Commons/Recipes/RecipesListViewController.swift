@@ -24,20 +24,21 @@ final class RecipesListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         self.tableView.rowHeight = 160
         tableView.dataSource = dataSource
         tableView.delegate = dataSource
-        
+
         bind(to: viewModel)
-        
+
         viewModel.viewDidLoad()
+
+        bind(to: dataSource)
     }
     
     // MARK: - Helpers
     
     private func bind(to viewModel: RecipesListViewModel) {
-        
         viewModel.items = { [weak self] items in
             DispatchQueue.main.async {
                 self?.dataSource.update(with: items)
@@ -45,10 +46,8 @@ final class RecipesListViewController: UIViewController {
             }
         }
     }
-    
-    // MARK: - Actions
-    
-    func didPressDetail() {
-        viewModel.didPressDetail()
+
+    private func bind(to dataSource: RecipesListDataSources) {
+        dataSource.didSelectItemAtIndex = viewModel.didSelectItem
     }
 }

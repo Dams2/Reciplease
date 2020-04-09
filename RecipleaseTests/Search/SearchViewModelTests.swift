@@ -31,7 +31,7 @@ final class SearchViewModelTests: XCTestCase {
         let expectation = self.expectation(description: "Search Placeholder Text Returned")
         
         viewModel.searchPlaceholderText = { text in
-            XCTAssertEqual(text, "Lemon, Cheese, Sausages...")
+            XCTAssertEqual(text, "Lemon, Cheese...")
             expectation.fulfill()
         }
         

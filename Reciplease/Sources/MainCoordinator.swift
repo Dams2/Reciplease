@@ -81,7 +81,6 @@ final class MainCoordinator: NSObject {
         searchCoordinator = SearchCoordinator(presenter: tabBarSource[.search], screens: screens)
         searchCoordinator?.start()
     }
-    
 }
 
 extension MainCoordinator: UITabBarControllerDelegate {

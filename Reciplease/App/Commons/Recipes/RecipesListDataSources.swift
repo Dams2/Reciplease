@@ -10,7 +10,9 @@ import UIKit
 
 final class RecipesListDataSources: NSObject, UITableViewDelegate, UITableViewDataSource {
     
-    typealias Item = RecipesListViewModel.Recipes
+    typealias Item = Recipe
+
+    var didSelectItemAtIndex: ((Int) -> Void)?
         
     private var items: [Item] = []
 
@@ -34,9 +36,7 @@ final class RecipesListDataSources: NSObject, UITableViewDelegate, UITableViewDa
         return cell
     }
     
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//
-//                
-//        return
-//    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        didSelectItemAtIndex?(indexPath.item)
+    }
 }
