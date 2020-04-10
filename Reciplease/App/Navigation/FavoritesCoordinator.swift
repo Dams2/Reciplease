@@ -24,15 +24,13 @@ final class FavoritesCoordinator {
     }
 
     // MARK: - Coodinator
-
-    private func showDetail(for recipe: Recipe) {
-        let viewController = screens.createDetailViewController(for: recipe)
-        presenter.viewControllers = [viewController]
+    
+    func start() {
+        showFavorite()
     }
-}
 
-extension FavoritesCoordinator: RecipesListViewControllerDelegate {
-    func didSelect(_ item: Recipe) {
-        showDetail(for: item)
+    private func showFavorite() {
+        let viewController = screens.createFavoritesRecipesListViewController()
+        presenter.viewControllers = [viewController]
     }
 }

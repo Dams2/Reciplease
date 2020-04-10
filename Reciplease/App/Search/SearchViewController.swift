@@ -44,9 +44,7 @@ final class SearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
-        
         bind(to: viewModel)
-        
         viewModel.viewDidLoad()
     }
 

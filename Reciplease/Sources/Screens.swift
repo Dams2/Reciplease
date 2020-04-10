@@ -20,7 +20,7 @@ public class Screens {
 }
 
 protocol SearchViewControllerDelegate: class {
-    func didPressSearch()
+    func didPressSearch(ingredientsList: [String])
 }
 
 extension Screens {
@@ -37,24 +37,24 @@ protocol RecipesListViewControllerDelegate: class {
 }
 
 extension Screens {
-    func createRecipesListViewController(delegate: RecipesListViewControllerDelegate?) -> UIViewController {
+    func createRecipesListViewController(ingredientsList: [String], delegate: RecipesListViewControllerDelegate?) -> UIViewController {
         let viewController = storyboard.instantiateViewController(withIdentifier: "RecipesListViewController") as! RecipesListViewController
         let repository = RecipesListRepository(client: context.client)
-        let viewModel = RecipesListViewModel(delegate: delegate, repository: repository)
-        viewController.viewModel = viewModel
+        let viewModel = RecipesListViewModel(ingredientsList: ingredientsList, delegate: delegate, repository: repository)
+        viewController.recipesListViewModel = viewModel
         return viewController
     }
 }
 
-//extension Screens {
-//    func createFavoriteRecipesListViewController(delegate: RecipesListViewControllerDelegate?) -> UIViewController {
-//        let viewController = storyboard.instantiateViewController(withIdentifier: "RecipesListViewController") as! RecipesListViewController
-//        let repository = RecipesListRepository(client: context.stack)
-//        let viewModel = RecipesListViewModel(delegate: delegate, repository: repository)
-//        viewController.viewModel = viewModel
-//        return viewController
-//    }
-//}
+extension Screens {
+    func createFavoritesRecipesListViewController() -> UIViewController {
+        let viewController = storyboard.instantiateViewController(withIdentifier: "RecipesListViewController") as! RecipesListViewController
+        let repository = FavoritesRecipesListRepository(stack: context.stack)
+        let viewModel = FavoritesRecipesListViewModel(repository: repository)
+        viewController.favoritesRecipesListViewModel = viewModel
+        return viewController
+    }
+}
 
 extension Screens {
     func createDetailViewController(for recipe: Recipe) -> UIViewController {

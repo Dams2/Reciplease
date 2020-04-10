@@ -14,7 +14,7 @@ final class DetailViewController: UIViewController {
     
     var viewModel: DetailViewModel!
     
-    private let helper = Helper()
+    private var token: RequestCancellationToken?
     
     // MARK: - Outlets
     
@@ -34,7 +34,11 @@ final class DetailViewController: UIViewController {
     
     @IBOutlet weak var timeImageView: UIImageView!
     
-    @IBOutlet weak var recipeImageView: UIImageView!
+    @IBOutlet weak var recipeImageView: UIImageView! {
+        didSet {
+            recipeImageView.addGradient()
+        }
+    }
     
     @IBOutlet weak var recipeTitleLabel: UILabel!
     
@@ -42,29 +46,63 @@ final class DetailViewController: UIViewController {
     
     @IBOutlet weak var ingredientsTextView: UITextView!
     
+    @IBOutlet weak var getDirectionsButton: UIButton!
+    
     // MARK: - View life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         bind(to: viewModel)
         viewModel.viewDidLoad()
     }
     
     // MARK: - Helpers
+
     
     private func bind(to viewModel: DetailViewModel) {
-        viewModel.likesText = { [weak self] text in
+        viewModel.likesImageText = { [weak self] text in
             self?.likesImageView.image = UIImage(named: text)
         }
         
         viewModel.timerText = { [weak self] text in
+            self?.timeLabel.text = text
+        }
+        
+        viewModel.timerImageText = { [weak self] text in
             self?.timeImageView.image = UIImage(named: text)
+        }
+        
+        viewModel.recipeImageText = { [weak self] text in
+            guard let url = URL(string: text) else { return }
+            self?.recipeImageView.addGradient()
+            self?.recipeImageView.setImage(url: url,
+                                     placeholder: UIImage(named: "recipleaseImage"),
+                                     cancelledBy: nil)
+        }
+        
+        viewModel.recipeTitleText = { [weak self] text in
+            self?.recipeTitleLabel.text = text
+        }
+        
+        viewModel.ingredientsText = { [weak self] text in
+            self?.ingredientsLabel.text = text
+        }
+        
+        viewModel.ingredientsListText = { [weak self] text in
+            self?.ingredientsTextView.text = text
+        }
+        
+        viewModel.getDirectionsText = { [weak self] text in
+            self?.getDirectionsButton.setTitle(text, for: .normal)
         }
     }
     
    
     // MARK: - Inputs
     
-    
+    @IBAction func didPressGetDirectionsButton(_ sender: UIButton) {
+        guard let url = URL(string: viewModel.didPressGetDirection()) else { return }
+        UIApplication.shared.open(url)
+    }
 }

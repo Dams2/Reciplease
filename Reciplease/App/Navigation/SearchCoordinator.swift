@@ -34,20 +34,22 @@ final class SearchCoordinator {
         presenter.viewControllers = [viewController]
     }
     
-    private func showRecipesResult() {
-        let viewController = screens.createRecipesListViewController(delegate: self)
+    private func showRecipesResult(ingredientsList: [String]) {
+        let viewController = screens.createRecipesListViewController(ingredientsList: ingredientsList, delegate: self)
         presenter.pushViewController(viewController, animated: true)
     }
 
     private func showDetails(for recipe: Recipe) {
         let viewController = screens.createDetailViewController(for: recipe)
         presenter.pushViewController(viewController, animated: true)
+        let addToFavorite = UIBarButtonItem(image: UIImage(named: "unFavorite"), style: .done, target: self, action: nil)
+        viewController.navigationItem.setRightBarButton(addToFavorite, animated: true)
     }
 }
 
 extension SearchCoordinator: SearchViewControllerDelegate {
-    func didPressSearch() {
-        showRecipesResult()
+    func didPressSearch(ingredientsList: [String]) {
+        showRecipesResult(ingredientsList: ingredientsList)
     }
 }
 

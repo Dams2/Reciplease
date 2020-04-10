@@ -36,8 +36,7 @@ final class SearchViewModel {
 
     var ingredientsList: [String] = [] {
         didSet {
-            let text = ingredientsList
-            print(text)
+            let text = ingredientsList.map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
             ingredientsText?("- \(text.joined(separator: "\n\n- "))")
         }
     }
@@ -45,10 +44,20 @@ final class SearchViewModel {
     // MARK: - Helpers
 
     private func appendIngredients(searchText: String, ingredients: [String]) {
-        if searchText.isEmpty || ingredients.contains(searchText) {
+        let searchTextLowercased = searchText.lowercased()
+        
+        if searchTextLowercased.isEmpty || ingredients.contains(searchTextLowercased) {
             return
         } else {
-            ingredientsList.append(searchText)
+            charactersSet(searchTextLowercased: searchTextLowercased)
+        }
+    }
+    
+    private func charactersSet(searchTextLowercased: String) {
+        if searchTextLowercased.rangeOfCharacter(from: NSCharacterSet.letters.inverted) == nil {
+            ingredientsList.append(searchTextLowercased.lowercased())
+        } else {
+            return
         }
     }
 
@@ -66,6 +75,8 @@ final class SearchViewModel {
 
     func didPressAdd(searchText: String) {
         appendIngredients(searchText: searchText, ingredients: ingredientsList)
+        
+        print(ingredientsList)
     }
 
     func didPressClear() {
@@ -74,6 +85,6 @@ final class SearchViewModel {
     }
 
     func didPressSearch() {
-        delegate?.didPressSearch()
+        delegate?.didPressSearch(ingredientsList: ingredientsList)
     }
 }

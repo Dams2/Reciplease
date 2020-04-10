@@ -27,7 +27,7 @@ extension UIImageView {
 
 extension UIImageView {
 
-    func setImage(url: URL, placeholder: UIImage? = nil, cancelledBy token: RequestCancellationToken) {
+    func setImage(url: URL, placeholder: UIImage? = nil, cancelledBy token: RequestCancellationToken?) {
         if let placeholder = placeholder {
             self.image = placeholder
         }

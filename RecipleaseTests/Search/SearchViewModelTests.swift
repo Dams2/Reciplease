@@ -132,6 +132,5 @@ final class SearchViewModelTests: XCTestCase {
 fileprivate final class MockSearchViewControllerDelegate: SearchViewControllerDelegate {
     
     func didPressSearch() {
-        
     }
 }

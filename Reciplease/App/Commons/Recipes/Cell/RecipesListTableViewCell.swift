@@ -11,13 +11,11 @@ import UIKit
 final class RecipesListTableViewCell: UITableViewCell {
     
     // MARK: - Private Properties
-    
-    let helper = Helper()
-    
+
     private var client: HTTPClient!
 
     private var token: RequestCancellationToken?
-        
+
     // MARK: - Outlets
 
     @IBOutlet weak var recipeImageView: UIImageView!
@@ -65,7 +63,7 @@ final class RecipesListTableViewCell: UITableViewCell {
         token = RequestCancellationToken()
         guard let token = token, let url = URL(string: recipe.imageTextURL) else { return }
         recipeImageView.setImage(url: url,
-                                 placeholder: nil,
+                                 placeholder: UIImage(named: "recipleaseImage"),
                                  cancelledBy: token)
     }    
 }

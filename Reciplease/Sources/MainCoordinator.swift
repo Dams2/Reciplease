@@ -51,6 +51,8 @@ final class MainCoordinator: NSObject {
     private let screens: Screens
     
     private var searchCoordinator: SearchCoordinator?
+    
+    private var favoritesCoordinator: FavoritesCoordinator?
 
     private var tabBarSource = TabBarSource()
 
@@ -81,6 +83,11 @@ final class MainCoordinator: NSObject {
         searchCoordinator = SearchCoordinator(presenter: tabBarSource[.search], screens: screens)
         searchCoordinator?.start()
     }
+    
+    private func showFavorite() {
+        favoritesCoordinator = FavoritesCoordinator(presenter: tabBarSource[.favorite], screens: screens)
+        favoritesCoordinator?.start()
+    }
 }
 
 extension MainCoordinator: UITabBarControllerDelegate {
@@ -94,7 +101,7 @@ extension MainCoordinator: UITabBarControllerDelegate {
         case .search:
             showSearch()
         case .favorite:
-            showSearch()
+            showFavorite()
         }
     }
 }

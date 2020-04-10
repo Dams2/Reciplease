@@ -8,20 +8,24 @@
 
 import Foundation
 
-
 final class RecipesListViewModel {
 
     // MARK: - Properties
-
+    
+    var viewModel: SearchViewModel!
+    
+    private let ingredientsList: [String]
+    
     private weak var delegate: RecipesListViewControllerDelegate?
 
     private let repository: RecipesListRepositoryType
 
-    init(delegate: RecipesListViewControllerDelegate?, repository: RecipesListRepositoryType) {
+    init(ingredientsList: [String], delegate: RecipesListViewControllerDelegate?, repository: RecipesListRepositoryType) {
+        self.ingredientsList = ingredientsList
         self.delegate = delegate
         self.repository = repository
     }
-
+    
     private var recipeItems: [RecipeItem] = [] {
         didSet {
             let items = recipeItems.map { Recipe(recipeItems: $0) }
@@ -40,7 +44,8 @@ final class RecipesListViewModel {
     // MARK: - Inputs
 
     func viewDidLoad() {
-        repository.getRecipes(for: "chicken") { [weak self] recipesResponse in
+        print(ingredientsList.joined(separator: "/"))
+        repository.getRecipes(for: ingredientsList.joined(separator: "/")) { [weak self] recipesResponse in
             recipesResponse.hits.lazy.forEach { self?.recipeItems.append(.food(response: $0)) }
         }
     }

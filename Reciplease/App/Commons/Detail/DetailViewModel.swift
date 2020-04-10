@@ -22,13 +22,36 @@ final class DetailViewModel {
     
     var likesText: ((String) -> Void)?
     
+    var likesImageText: ((String) -> Void)?
+    
     var timerText: ((String) -> Void)?
+    
+    var timerImageText: ((String) -> Void)?
+    
+    var recipeImageText: ((String) -> Void)?
+    
+    var recipeTitleText: ((String) -> Void)?
+    
+    var ingredientsText: ((String) -> Void)?
+    
+    var ingredientsListText: ((String) -> Void)?
+    
+    var getDirectionsText: ((String) -> Void)?
     
     // MARK: - Inputs
     
     func viewDidLoad() {
-        likesText?("heart")
-        timerText?("clock")
+        likesImageText?("heart")
+        timerText?(recipe.totalTime)
+        timerImageText?("clock")
+        recipeImageText?(recipe.imageTextURL)
+        recipeTitleText?(recipe.title)
+        ingredientsText?("Ingredients :")
+        ingredientsListText?("- \(recipe.ingredientLines)")
+        getDirectionsText?("Get Directions")
     }
     
+    func didPressGetDirection() -> String {
+        return recipe.originalRecipeURL
+    }
 }

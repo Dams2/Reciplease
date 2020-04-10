@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -36,7 +35,7 @@
                                     <constraint firstAttribute="height" constant="56" id="mRw-xJ-uSJ"/>
                                 </constraints>
                                 <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
                                 <scopeButtonTitles>
                                     <string>Title</string>
                                     <string>Title</string>
@@ -279,12 +278,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="25Q-7M-4uh">
-                                <rect key="frame" x="0.0" y="44" width="414" height="374"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="25Q-7M-4uh">
+                                <rect key="frame" x="0.0" y="44" width="414" height="373"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wRb-WY-5ra">
-                                <rect key="frame" x="20" y="379" width="374" height="29"/>
-                                <fontDescription key="fontDescription" name="ArialRoundedMTBold" family="Arial Rounded MT Bold" pointSize="25"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wRb-WY-5ra">
+                                <rect key="frame" x="5" y="372" width="404" height="35"/>
+                                <fontDescription key="fontDescription" name="ArialRoundedMTBold" family="Arial Rounded MT Bold" pointSize="30"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -299,62 +298,62 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <action selector="didPressSearchButton:" destination="Yk2-YK-Cdh" eventType="touchUpInside" id="wFv-u5-dbW"/>
+                                    <action selector="didPressGetDirectionsButton:" destination="Fpf-Ve-76H" eventType="touchUpInside" id="kED-DX-ano"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ingredients :" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IO2-6b-VD2">
-                                <rect key="frame" x="11" y="438" width="103.66666666666667" height="20"/>
-                                <fontDescription key="fontDescription" name="ArialRoundedMTBold" family="Arial Rounded MT Bold" pointSize="17"/>
+                                <rect key="frame" x="11" y="437" width="116" height="22"/>
+                                <fontDescription key="fontDescription" name="ArialRoundedMTBold" family="Arial Rounded MT Bold" pointSize="19"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="yTT-Qm-xpg">
-                                <rect key="frame" x="11" y="471" width="392" height="303"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yTT-Qm-xpg">
+                                <rect key="frame" x="11" y="472" width="392" height="302"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <fontDescription key="fontDescription" name="ArialRoundedMTBold" family="Arial Rounded MT Bold" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZEd-pN-icb">
-                                <rect key="frame" x="343" y="60" width="60" height="34"/>
+                                <rect key="frame" x="343" y="60" width="60" height="50"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="UZI-H1-rBd">
-                                        <rect key="frame" x="3" y="3" width="56" height="28"/>
+                                        <rect key="frame" x="3" y="3" width="54" height="44"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nn6-Us-kH0">
-                                                <rect key="frame" x="0.0" y="0.0" width="56" height="12.333333333333334"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="54" height="20.666666666666668"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12k" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LMl-Xf-gaH">
-                                                        <rect key="frame" x="0.0" y="0.0" width="36" height="12.333333333333334"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="34" height="20.666666666666668"/>
                                                         <fontDescription key="fontDescription" name="ArialRoundedMTBold" family="Arial Rounded MT Bold" pointSize="13"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cfM-Pg-h5U">
-                                                        <rect key="frame" x="36" y="0.0" width="20" height="12.333333333333334"/>
+                                                        <rect key="frame" x="34" y="0.0" width="20" height="20.666666666666668"/>
                                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="12.33" id="3gq-DI-Wnd"/>
+                                                            <constraint firstAttribute="height" constant="20.5" id="9fD-QH-ecE"/>
                                                             <constraint firstAttribute="width" constant="20" id="fIz-rr-nan"/>
                                                         </constraints>
                                                     </imageView>
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="5OD-pK-Xhp">
-                                                <rect key="frame" x="0.0" y="15.333333333333329" width="56" height="12.666666666666664"/>
+                                                <rect key="frame" x="0.0" y="23.666666666666671" width="54" height="20.333333333333329"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1h" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tA3-h2-IAM">
-                                                        <rect key="frame" x="0.0" y="0.0" width="29" height="12.666666666666666"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="27" height="20.333333333333332"/>
                                                         <fontDescription key="fontDescription" name="ArialRoundedMTBold" family="Arial Rounded MT Bold" pointSize="13"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eiD-aU-d8h">
-                                                        <rect key="frame" x="36" y="0.0" width="20" height="12.666666666666666"/>
+                                                        <rect key="frame" x="34" y="0.0" width="20" height="20.333333333333332"/>
                                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="12.67" id="B6y-2r-aWc"/>
                                                             <constraint firstAttribute="width" constant="20" id="PVq-Tu-INi"/>
+                                                            <constraint firstAttribute="height" constant="20.5" id="pyf-F0-FvO"/>
                                                         </constraints>
                                                     </imageView>
                                                 </subviews>
@@ -367,17 +366,17 @@
                                     <constraint firstItem="UZI-H1-rBd" firstAttribute="top" secondItem="ZEd-pN-icb" secondAttribute="top" constant="3" id="APX-Bx-XTQ"/>
                                     <constraint firstItem="UZI-H1-rBd" firstAttribute="leading" secondItem="ZEd-pN-icb" secondAttribute="leading" constant="3" id="Qck-oZ-2b1"/>
                                     <constraint firstAttribute="width" constant="60" id="RU8-ah-60T"/>
-                                    <constraint firstAttribute="trailing" secondItem="UZI-H1-rBd" secondAttribute="trailing" constant="1" id="iep-AZ-e7v"/>
+                                    <constraint firstAttribute="trailing" secondItem="UZI-H1-rBd" secondAttribute="trailing" constant="3" id="iep-AZ-e7v"/>
                                     <constraint firstAttribute="bottom" secondItem="UZI-H1-rBd" secondAttribute="bottom" constant="3" id="rDK-Lz-RYF"/>
-                                    <constraint firstAttribute="height" constant="34" id="ux4-Wj-wSL"/>
+                                    <constraint firstAttribute="height" constant="50" id="ux4-Wj-wSL"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="vXj-W3-CtN" firstAttribute="trailing" secondItem="wRb-WY-5ra" secondAttribute="trailing" constant="20" id="0fa-3S-XVF"/>
+                            <constraint firstItem="vXj-W3-CtN" firstAttribute="trailing" secondItem="wRb-WY-5ra" secondAttribute="trailing" constant="5" id="0fa-3S-XVF"/>
                             <constraint firstItem="WJe-i7-ga6" firstAttribute="trailing" secondItem="vXj-W3-CtN" secondAttribute="trailing" id="2uh-Vi-Xv0"/>
-                            <constraint firstItem="wRb-WY-5ra" firstAttribute="leading" secondItem="vXj-W3-CtN" secondAttribute="leading" constant="20" id="92y-d5-zV4"/>
+                            <constraint firstItem="wRb-WY-5ra" firstAttribute="leading" secondItem="vXj-W3-CtN" secondAttribute="leading" constant="5" id="92y-d5-zV4"/>
                             <constraint firstItem="WJe-i7-ga6" firstAttribute="bottom" secondItem="vXj-W3-CtN" secondAttribute="bottom" id="FW5-r8-cgD"/>
                             <constraint firstItem="WJe-i7-ga6" firstAttribute="leading" secondItem="vXj-W3-CtN" secondAttribute="leading" id="IS4-wn-nfC"/>
                             <constraint firstItem="IO2-6b-VD2" firstAttribute="leading" secondItem="vXj-W3-CtN" secondAttribute="leading" constant="11" id="Khg-AE-Odc"/>
@@ -397,6 +396,7 @@
                         <viewLayoutGuide key="safeArea" id="vXj-W3-CtN"/>
                     </view>
                     <connections>
+                        <outlet property="getDirectionsButton" destination="WJe-i7-ga6" id="blS-0h-JsA"/>
                         <outlet property="infoView" destination="ZEd-pN-icb" id="2JG-LI-sv4"/>
                         <outlet property="ingredientsLabel" destination="IO2-6b-VD2" id="e3d-8G-p0S"/>
                         <outlet property="ingredientsTextView" destination="yTT-Qm-xpg" id="Ohd-aA-3co"/>
