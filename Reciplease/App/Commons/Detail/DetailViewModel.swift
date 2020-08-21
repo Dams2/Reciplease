@@ -14,7 +14,6 @@ final class DetailViewModel {
     
     private let recipe: Recipe
     private let favoritesRecipesListRepository: FavoritesRecipesListRepository
-    private var counter = 0
 
     private var isFavorite = false {
         didSet {
@@ -60,11 +59,27 @@ final class DetailViewModel {
     }
     
     func didPressAddToFavorite() {
+        if isFavorite == false {
+            AddToFavorite()
+        } else {
+            deleteFromFavorite()
+        }
+    }
+    
+    //    func didPressGetDirection() -> String {
+    //        return recipe.originalRecipeURL
+    //    }
+    
+    // MARK: - Helpers
+    
+    private func AddToFavorite() {
         isFavorite = !isFavorite
         favoritesRecipesListRepository.saveRecipe(for: recipe)
     }
     
-//    func didPressGetDirection() -> String {
-//        return recipe.originalRecipeURL
-//    }
+    private func deleteFromFavorite() {
+        favoritesRecipesListRepository.deleteRecipe(for: recipe, id: recipe.url)
+    }
+    
+
 }

@@ -29,16 +29,19 @@ final class FavoritesRecipesListRepository {
             print("This object already exist")
         }
     }
+    
+    func deleteRecipe(for recipe: Recipe, id: String) {
+        if stack.someEntityExists(id: recipe.url) == true {
+            stack.deleteContext(id: id)
+        } else {
+            print("This object doesn't exist")
+        }
+    }
 
     func isAlreadyFavorite(id: String) -> Bool {
         return stack.someEntityExists(id: id)
     }
-    
-    func delete() {
-        stack.deleteAllRecords()
-    }
 }
-
 
 extension Recipe {
     init?(entity: RecipeEntity) {

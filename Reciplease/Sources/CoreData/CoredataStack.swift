@@ -30,7 +30,6 @@ final class CoredataStack {
     // MARK: - Core Data Saving support
 
     func saveContext(for recipe: Recipe) {
-        let context = persistentContainer.viewContext
         let save = NSEntityDescription.insertNewObject(forEntityName: "RecipeEntity", into: context)
         save.setValue(recipe.url, forKey: "id")
         save.setValue(recipe.title, forKey: "title")
@@ -48,6 +47,21 @@ final class CoredataStack {
         }
     }
     
+    func deleteContext(id: String) {
+        let fetchRequest: NSFetchRequest<RecipeEntity> = RecipeEntity.fetchRequest()
+        var result: [RecipeEntity] = []
+        do {
+            result = try context.fetch(fetchRequest)
+            result.forEach { (object) in
+                if object.id == id {
+                    context.delete(object)
+                }
+            }
+            try context.save()
+
+        } catch {}
+    }
+    
     func someEntityExists(id: String) -> Bool {
         let fetchRequest: NSFetchRequest<RecipeEntity> = RecipeEntity.fetchRequest()
         var result: [RecipeEntity] = []
@@ -55,18 +69,6 @@ final class CoredataStack {
             result = try context.fetch(fetchRequest)
         } catch {}
         return result.contains(where: { $0.id == id })
-    }
-    
-    func deleteAllRecords() {
-        let deleteFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "RecipeEntity")
-        let deleteRequest = NSBatchDeleteRequest(fetchRequest: deleteFetch)
-
-        do {
-            try context.execute(deleteRequest)
-            try context.save()
-        } catch {
-            print ("There was an error")
-        }
     }
 }
 

@@ -40,7 +40,6 @@ final class FavoritesCoordinator {
     private func showDetails(for recipe: Recipe) {
         let viewController = screens.createDetailViewController(for: recipe)
         presenter.pushViewController(viewController, animated: true)
-        print(recipe)
     }
 }
 

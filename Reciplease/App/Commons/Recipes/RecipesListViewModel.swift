@@ -45,13 +45,15 @@ final class RecipesListViewModel {
             self.items?(favoriteRecipes)
         }
     }
+    
+    private var state = true
 
     // MARK: - Outputs
 
     var items: (([Recipe]) -> Void)?
 
     enum RecipeItem {
-        case food(response: RecipesResponse.Recipe)
+        case research(response: RecipesResponse.Recipe)
     }
     
     // MARK: - Helpers
@@ -61,26 +63,35 @@ final class RecipesListViewModel {
     func viewDidLoad() {
         if !ingredientsList.isEmpty {
             searchRecipesListRepository.getRecipes(for: ingredientsList.joined(separator: "/")) { [weak self] recipesResponse in
-                recipesResponse.hits.lazy.forEach { self?.recipeItems.append(.food(response: $0.recipe)) }
+                recipesResponse.hits.lazy.forEach { self?.recipeItems.append(.research(response: $0.recipe)) }
+                self?.state = true
             }
         } else {
-            favoritesRecipesListRepository.getRecipes(for: nil) { (recipes) in
-                self.favoriteRecipes = recipes
+            favoritesRecipesListRepository.getRecipes(for: nil) { [weak self] (recipes) in
+                self?.favoriteRecipes = recipes
+                self?.state = false
             }
         }
     }
 
     func didSelectItem(at index: Int) {
-        guard favoriteRecipes.indices.contains(index) else { return }
-        let recip = Recipe(recipeItems: recipeItems[index])
-        actions.didSelectItem(recip)
+        if state == true {
+            guard recipeItems.indices.contains(index) else { return }
+            let recip = Recipe(recipeItems: recipeItems[index])
+            actions.didSelectItem(recip)
+
+        } else {
+            guard favoriteRecipes.indices.contains(index) else { return }
+            let recipe = favoriteRecipes[index]
+            actions.didSelectItem(recipe)
+        }
     }
 }
 
 extension Recipe {
     init(recipeItems: RecipesListViewModel.RecipeItem) {
         switch recipeItems {
-        case .food(response: let response):
+        case .research(response: let response):
             self = Recipe(response: response)
         }
     }

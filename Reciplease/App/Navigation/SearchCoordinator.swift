@@ -53,9 +53,3 @@ extension SearchCoordinator: SearchViewControllerDelegate {
         showRecipesResult(ingredientsList: ingredientsList)
     }
 }
-
-//extension SearchCoordinator: RecipesListViewControllerDelegate {
-//    func didSelect(_ recipe: Recipe) {
-//        showDetails(for: recipe)
-//    }
-//}
