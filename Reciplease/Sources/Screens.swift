@@ -37,21 +37,30 @@ protocol RecipesListViewControllerDelegate: class {
 }
 
 extension Screens {
-    func createRecipesListViewController(ingredientsList: [String], delegate: RecipesListViewControllerDelegate?) -> UIViewController {
+    func createRecipesListViewController(ingredientsList: [String],
+                                         actions: RecipesListViewModel.Actions) -> UIViewController {
         let viewController = storyboard.instantiateViewController(withIdentifier: "RecipesListViewController") as! RecipesListViewController
-        let repository = RecipesListRepository(client: context.client)
-        let viewModel = RecipesListViewModel(ingredientsList: ingredientsList, delegate: delegate, repository: repository)
-        viewController.recipesListViewModel = viewModel
+        let searchRecipesListRepository = SearchRecipesListRepository(client: context.client)
+        let favoritesRecipesListRepository = FavoritesRecipesListRepository(stack: context.stack)
+        let viewModel = RecipesListViewModel(ingredientsList: ingredientsList,
+                                             actions: actions,
+                                             searchRecipesListRepository: searchRecipesListRepository,
+                                             favoritesRecipesListRepository: favoritesRecipesListRepository)
+        viewController.viewModel = viewModel
         return viewController
     }
 }
 
 extension Screens {
-    func createFavoritesRecipesListViewController() -> UIViewController {
+    func createFavoritesRecipesListViewController(actions: RecipesListViewModel.Actions) -> UIViewController {
         let viewController = storyboard.instantiateViewController(withIdentifier: "RecipesListViewController") as! RecipesListViewController
-        let repository = FavoritesRecipesListRepository(stack: context.stack)
-        let viewModel = FavoritesRecipesListViewModel(repository: repository)
-        viewController.favoritesRecipesListViewModel = viewModel
+        let searchRecipesListRepository = SearchRecipesListRepository(client: context.client)
+        let favoritesRecipesListRepository = FavoritesRecipesListRepository(stack: context.stack)
+        let viewModel = RecipesListViewModel(ingredientsList: [],
+                                             actions: actions,
+                                             searchRecipesListRepository: searchRecipesListRepository,
+                                             favoritesRecipesListRepository: favoritesRecipesListRepository)
+        viewController.viewModel = viewModel
         return viewController
     }
 }
@@ -59,7 +68,9 @@ extension Screens {
 extension Screens {
     func createDetailViewController(for recipe: Recipe) -> UIViewController {
         let viewController = storyboard.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
-        let viewModel = DetailViewModel(recipe: recipe)
+        let favoritesRecipesListRepository = FavoritesRecipesListRepository(stack: context.stack)
+        
+        let viewModel = DetailViewModel(recipe: recipe, favoritesRecipesListRepository: favoritesRecipesListRepository)
         viewController.viewModel = viewModel
         return viewController
     }

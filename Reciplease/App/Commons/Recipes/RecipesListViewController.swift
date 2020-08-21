@@ -14,10 +14,8 @@ final class RecipesListViewController: UIViewController {
     
     private lazy var dataSource = RecipesListDataSources()
     
-    var recipesListViewModel: RecipesListViewModel!
-    
-    var favoritesRecipesListViewModel: FavoritesRecipesListViewModel!
-        
+    var viewModel: RecipesListViewModel!
+            
     // MARK: - Outlets
     
     @IBOutlet weak var tableView: UITableView!
@@ -31,9 +29,9 @@ final class RecipesListViewController: UIViewController {
         tableView.dataSource = dataSource
         tableView.delegate = dataSource
 
-        bind(to: recipesListViewModel)
+        bind(to: viewModel)
 
-        recipesListViewModel.viewDidLoad()
+        viewModel.viewDidLoad()
 
         bind(to: dataSource)
     }
@@ -50,6 +48,6 @@ final class RecipesListViewController: UIViewController {
     }
 
     private func bind(to dataSource: RecipesListDataSources) {
-        dataSource.didSelectItemAtIndex = recipesListViewModel.didSelectItem
+        dataSource.didSelectItemAtIndex = viewModel.didSelectItem
     }
 }

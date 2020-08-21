@@ -19,6 +19,7 @@ final class SearchViewController: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar! {
         didSet {
             searchBar.searchTextField.backgroundColor = .white
+            searchBar.keyboardType = .alphabet
         }
     }
     
@@ -35,7 +36,7 @@ final class SearchViewController: UIViewController {
     
     @IBOutlet weak var searchForRecipesButton: UIButton!
     
-    // MARK: - Private Properties
+    // MARK: - Properties
     
     var viewModel: SearchViewModel!
     
@@ -92,6 +93,7 @@ final class SearchViewController: UIViewController {
     
     @IBAction func didPressAddButton(_ sender: UIButton) {
         guard let searchText = searchBar.text else { return }
+        
         viewModel.didPressAdd(searchText: searchText)
         searchBar.text = ""
     }

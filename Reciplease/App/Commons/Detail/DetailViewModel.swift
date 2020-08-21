@@ -12,31 +12,38 @@ final class DetailViewModel {
     
     // MARK: - Properties
     
-    let recipe: Recipe
-    
-    init(recipe: Recipe) {
+    private let recipe: Recipe
+    private let favoritesRecipesListRepository: FavoritesRecipesListRepository
+    private var counter = 0
+
+    private var isFavorite = false {
+        didSet {
+            favoriteState?(isFavorite)
+        }
+    }
+
+    // MARK: - Init
+        
+    init(
+        recipe: Recipe,
+        favoritesRecipesListRepository: FavoritesRecipesListRepository
+    ) {
         self.recipe = recipe
+        self.favoritesRecipesListRepository = favoritesRecipesListRepository
     }
     
     // MARK: - Outputs
     
     var likesText: ((String) -> Void)?
-    
     var likesImageText: ((String) -> Void)?
-    
     var timerText: ((String) -> Void)?
-    
     var timerImageText: ((String) -> Void)?
-    
     var recipeImageText: ((String) -> Void)?
-    
     var recipeTitleText: ((String) -> Void)?
-    
     var ingredientsText: ((String) -> Void)?
-    
     var ingredientsListText: ((String) -> Void)?
-    
     var getDirectionsText: ((String) -> Void)?
+    var favoriteState: ((Bool) -> Void)?
     
     // MARK: - Inputs
     
@@ -49,9 +56,15 @@ final class DetailViewModel {
         ingredientsText?("Ingredients :")
         ingredientsListText?("- \(recipe.ingredientLines)")
         getDirectionsText?("Get Directions")
+        isFavorite = favoritesRecipesListRepository.isAlreadyFavorite(id: recipe.url)
     }
     
-    func didPressGetDirection() -> String {
-        return recipe.originalRecipeURL
+    func didPressAddToFavorite() {
+        isFavorite = !isFavorite
+        favoritesRecipesListRepository.saveRecipe(for: recipe)
     }
+    
+//    func didPressGetDirection() -> String {
+//        return recipe.originalRecipeURL
+//    }
 }

@@ -19,7 +19,9 @@ final class RecipesListTableViewCell: UITableViewCell {
     // MARK: - Outlets
 
     @IBOutlet weak var recipeImageView: UIImageView!
-
+    
+    @IBOutlet weak var gradientView: GradientView!
+    
     @IBOutlet weak var recipeTitleLabel: UILabel!
 
     @IBOutlet weak var recipeIngredientLinesLabel: UILabel!
@@ -59,11 +61,21 @@ final class RecipesListTableViewCell: UITableViewCell {
         timeLabel.text = recipe.totalTime
         recipeTitleLabel.text = recipe.title
         recipeIngredientLinesLabel.text = recipe.ingredientLines
-        recipeImageView.addGradient()
         token = RequestCancellationToken()
         guard let token = token, let url = URL(string: recipe.imageTextURL) else { return }
         recipeImageView.setImage(url: url,
                                  placeholder: UIImage(named: "recipleaseImage"),
                                  cancelledBy: token)
-    }    
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        setupGradientView()
+    }
+
+    private func setupGradientView() {
+        let endColor = UIColor.black
+        let startColor = UIColor.clear
+        gradientView.updateGradient(with: .vertical, colors: startColor, endColor)
+    }
 }

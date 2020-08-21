@@ -36,28 +36,10 @@ final class SearchViewModel {
 
     var ingredientsList: [String] = [] {
         didSet {
-            let text = ingredientsList.map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+            var text = ingredientsList
+            text = text.filter({ $0 != "" })
+            text.removeDuplicates()
             ingredientsText?("- \(text.joined(separator: "\n\n- "))")
-        }
-    }
-
-    // MARK: - Helpers
-
-    private func appendIngredients(searchText: String, ingredients: [String]) {
-        let searchTextLowercased = searchText.lowercased()
-        
-        if searchTextLowercased.isEmpty || ingredients.contains(searchTextLowercased) {
-            return
-        } else {
-            charactersSet(searchTextLowercased: searchTextLowercased)
-        }
-    }
-    
-    private func charactersSet(searchTextLowercased: String) {
-        if searchTextLowercased.rangeOfCharacter(from: NSCharacterSet.letters.inverted) == nil {
-            ingredientsList.append(searchTextLowercased.lowercased())
-        } else {
-            return
         }
     }
 
@@ -74,9 +56,9 @@ final class SearchViewModel {
     }
 
     func didPressAdd(searchText: String) {
-        appendIngredients(searchText: searchText, ingredients: ingredientsList)
+        let array = searchText.stripped.replacingOccurrences(of: " ", with: ",").lowercased().components(separatedBy: ",")
         
-        print(ingredientsList)
+        array.forEach { ingredientsList.append($0.trimmingCharacters(in: .whitespacesAndNewlines)) }
     }
 
     func didPressClear() {

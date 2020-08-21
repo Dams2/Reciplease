@@ -6,11 +6,6 @@
 //  Copyright © 2020 Damien Rojo. All rights reserved.
 //
 
-// This file was generated from JSON Schema using quicktype, do not modify it directly.
-// To parse the JSON, add this file to your project and do:
-//
-//   let recipesResponse = try? newJSONDecoder().decode(RecipesResponse.self, from: jsonData)
-
 import Foundation
 
 // MARK: - RecipesResponse
@@ -37,14 +32,20 @@ struct RecipesResponse: Codable, Equatable {
         let shareAs: String
         let yield: Int
         let dietLabels: [String]
-        let healthLabels: [HealthLabel]
-        let cautions, ingredientLines: [String]
+        let healthLabels: [String]
+        let cautions: [String]
+        let ingredientLines: [String]
         let ingredients: [Ingredient]
         let calories, totalWeight: Double
         let totalTime: Int
         let totalNutrients, totalDaily: [String: Total]
         let digest: [Digest]
     }
+    
+//    enum Caution: String, Codable {
+//        case fodmap = "FODMAP"
+//        case sulfites = "Sulfites"
+//    }
     
     // MARK: - Digest
     struct Digest: Codable, Equatable {
@@ -72,7 +73,6 @@ struct RecipesResponse: Codable, Equatable {
     enum Unit: String, Codable, Equatable {
         case empty = "%"
         case g = "g"
-        case iu = "IU"
         case kcal = "kcal"
         case mg = "mg"
         case µg = "µg"
@@ -80,6 +80,7 @@ struct RecipesResponse: Codable, Equatable {
 
     enum HealthLabel: String, Codable, Equatable {
         case alcoholFree = "Alcohol-Free"
+        case immunoSupportive = "Immuno-Supportive"
         case peanutFree = "Peanut-Free"
         case sugarConscious = "Sugar-Conscious"
         case treeNutFree = "Tree-Nut-Free"
@@ -89,6 +90,7 @@ struct RecipesResponse: Codable, Equatable {
     struct Ingredient: Codable, Equatable {
         let text: String
         let weight: Double
+        let image: String?
     }
 
     // MARK: - Total

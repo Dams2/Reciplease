@@ -26,7 +26,6 @@ final class ImageRepository {
     
     func getImage(for url: URL, callback: @escaping (Data?) -> Void) {
         client.dataRequest(requestType: .GET, url: url, cancelledBy: token) { (data) in
-            print(data)
             callback(data)
         }
     }

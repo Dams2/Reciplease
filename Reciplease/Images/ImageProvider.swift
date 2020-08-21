@@ -9,23 +9,6 @@
 import UIKit
 
 extension UIImageView {
-    
-    func addGradient() {
-        let view = UIView(frame: self.frame)
-        let gradient = CAGradientLayer()
-
-        gradient.frame = view.frame
-        gradient.colors = [gradient, UIColor.black.cgColor]
-        gradient.locations = [0.5, 1]
-
-        view.layer.insertSublayer(gradient, at: 0)
-
-        self.addSubview(view)
-        self.bringSubviewToFront(view)
-    }
-}
-
-extension UIImageView {
 
     func setImage(url: URL, placeholder: UIImage? = nil, cancelledBy token: RequestCancellationToken?) {
         if let placeholder = placeholder {

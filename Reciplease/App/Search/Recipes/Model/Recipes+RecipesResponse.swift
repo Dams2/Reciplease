@@ -9,17 +9,12 @@
 import Foundation
 
 extension Recipe {
-    init(response: RecipesResponse.Hit) {
-        self.ontologyIdentifier = "\(response.recipe.uri)"
-        self.title = "\(response.recipe.label)"
-        self.imageTextURL = "\(response.recipe.image)"
-        self.sourceSiteIdentifier = "\(response.recipe.source)"
-        self.originalRecipeURL = "\(response.recipe.url)"
-        self.totalTime = "\(TimeFormatter.hourOrMinuteFormat(time: response.recipe.totalTime))"
-        self.numberOfServings = "\(response.recipe.yield)"
-        self.ingredientLines = "\(response.recipe.ingredientLines.joined(separator: "\n- "))"
-        self.ingredients = "\(response.recipe.ingredients)"
-        self.calories = "\(response.recipe.calories)"
-        self.totalWeight = "\(response.recipe.totalWeight)"
+    init(response: RecipesResponse.Recipe) {
+        self.title = "\(response.label)"
+        self.imageTextURL = "\(response.image)"
+        self.originalRecipeURL = "\(response.url)"
+        self.totalTime = "\(TimeFormatter.hourOrMinuteFormat(time: response.totalTime))"
+        self.ingredientLines = "\(response.ingredientLines.joined(separator: "\n- "))"
+        self.url = "\(response.url)"
     }
 }

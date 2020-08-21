@@ -8,10 +8,6 @@
 
 import Foundation
 
-protocol RecipesListRepositoryType: class {
-    func getRecipes(for food: String, callback: @escaping (RecipesResponse) -> Void)
-}
-
 protocol HTTPClientType: class {
     func request<T>(type: T.Type,
                     requestType: RequestType,
@@ -20,7 +16,7 @@ protocol HTTPClientType: class {
                     completion: @escaping (T) -> Void) where T : Decodable, T : Encodable
 }
 
-final class RecipesListRepository: RecipesListRepositoryType {
+final class SearchRecipesListRepository: RecipesListRepositoryType {
     
     let client: HTTPClientType
         
@@ -30,7 +26,9 @@ final class RecipesListRepository: RecipesListRepositoryType {
         self.client = client
     }
 
-    func getRecipes(for food: String, callback: @escaping (RecipesResponse) -> Void) {
+    func getRecipes(for food: String?,
+                    callback: @escaping (RecipesResponse) -> Void) {
+        guard let food = food else { return }
         let stringURL = "https://api.edamam.com/search?q=\(food)&app_id=10134b4c&app_key=17290abcde8ff15c43296fb17008d218"
         guard let url = URL(string: stringURL) else { return }
         client.request(type: RecipesResponse.self,

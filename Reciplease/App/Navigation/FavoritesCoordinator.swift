@@ -30,7 +30,17 @@ final class FavoritesCoordinator {
     }
 
     private func showFavorite() {
-        let viewController = screens.createFavoritesRecipesListViewController()
+        let actions = RecipesListViewModel.Actions(didSelectItem: { recipe in
+            self.showDetails(for: recipe)
+        })
+        let viewController = screens.createFavoritesRecipesListViewController(actions: actions)
         presenter.viewControllers = [viewController]
     }
+
+    private func showDetails(for recipe: Recipe) {
+        let viewController = screens.createDetailViewController(for: recipe)
+        presenter.pushViewController(viewController, animated: true)
+        print(recipe)
+    }
 }
+

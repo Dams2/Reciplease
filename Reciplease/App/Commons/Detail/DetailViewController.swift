@@ -16,6 +16,15 @@ final class DetailViewController: UIViewController {
     
     private var token: RequestCancellationToken?
     
+    private let gradient = GradientView()
+
+    private lazy var addToFavoriteBarButtonitem: UIBarButtonItem = {
+        let addToFavorite = UIBarButtonItem(image: UIImage(systemName: "hand.thumbsup"),
+                                            style: .done, target: self, action: #selector(saveRecipe))
+        addToFavorite.tintColor = .black
+        return addToFavorite
+    }()
+
     // MARK: - Outlets
     
     @IBOutlet weak var infoView: UIView!{
@@ -34,11 +43,9 @@ final class DetailViewController: UIViewController {
     
     @IBOutlet weak var timeImageView: UIImageView!
     
-    @IBOutlet weak var recipeImageView: UIImageView! {
-        didSet {
-            recipeImageView.addGradient()
-        }
-    }
+    @IBOutlet weak var recipeImageView: UIImageView!
+    
+    @IBOutlet weak var gradientView: GradientView!
     
     @IBOutlet weak var recipeTitleLabel: UILabel!
     
@@ -55,6 +62,23 @@ final class DetailViewController: UIViewController {
 
         bind(to: viewModel)
         viewModel.viewDidLoad()
+        layoutSubviews()
+        setUI()
+    }
+
+    private func setUI() {
+        navigationItem.setRightBarButton(addToFavoriteBarButtonitem,
+                                         animated: true)
+    }
+    
+    private func layoutSubviews() {
+        setupGradientView()
+    }
+
+    private func setupGradientView() {
+        let endColor = UIColor.black
+        let startColor = UIColor.clear
+        gradientView.updateGradient(with: .vertical, colors: startColor, endColor)
     }
     
     // MARK: - Helpers
@@ -75,10 +99,11 @@ final class DetailViewController: UIViewController {
         
         viewModel.recipeImageText = { [weak self] text in
             guard let url = URL(string: text) else { return }
-            self?.recipeImageView.addGradient()
-            self?.recipeImageView.setImage(url: url,
-                                     placeholder: UIImage(named: "recipleaseImage"),
-                                     cancelledBy: nil)
+            DispatchQueue.main.async {
+                self?.recipeImageView.setImage(url: url,
+                                         placeholder: UIImage(named: "recipleaseImage"),
+                                         cancelledBy: nil)
+            }
         }
         
         viewModel.recipeTitleText = { [weak self] text in
@@ -96,13 +121,26 @@ final class DetailViewController: UIViewController {
         viewModel.getDirectionsText = { [weak self] text in
             self?.getDirectionsButton.setTitle(text, for: .normal)
         }
+
+        viewModel.favoriteState = { [weak self] state in
+            switch state {
+            case true:
+                self?.addToFavoriteBarButtonitem.tintColor = .blue
+            case false:
+                self?.addToFavoriteBarButtonitem.tintColor = .black
+            }
+        }
     }
-    
-   
+
     // MARK: - Inputs
     
     @IBAction func didPressGetDirectionsButton(_ sender: UIButton) {
-        guard let url = URL(string: viewModel.didPressGetDirection()) else { return }
-        UIApplication.shared.open(url)
+//        guard let url = URL(string: viewModel.didPressGetDirection()) else { return }
+//        UIApplication.shared.open(url)
+    }
+    
+    @objc private func saveRecipe() {
+        addToFavoriteBarButtonitem.tintColor = .blue
+        viewModel.didPressAddToFavorite()
     }
 }

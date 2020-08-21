@@ -26,7 +26,7 @@ final class ScreensTests: XCTestCase {
     }
 
     func testThatCreateRecipesListViewControllerCorrectly() {
-        let viewController = screens.createRecipesListViewController(delegate: nil)
+        let viewController = screens.createRecipesListViewController(ingredientsList: ["chicken"], delegate: nil)
         XCTAssertNotNil(viewController)
     }
     
