@@ -66,7 +66,11 @@ final class SearchViewModel {
         ingredientsText?("add ingredients...")
     }
 
-    func didPressSearch() {
-        delegate?.didPressSearch(ingredientsList: ingredientsList)
+    func didPressSearchForRecipes() {
+        if ingredientsList.isEmpty {
+            return
+        } else {
+            delegate?.didPressSearch(ingredientsList: ingredientsList)
+        }
     }
 }

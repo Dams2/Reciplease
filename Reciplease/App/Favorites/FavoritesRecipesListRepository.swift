@@ -8,7 +8,11 @@
 
 import Foundation
 
-final class FavoritesRecipesListRepository {
+protocol FavoritesRecipesListRepositoryType: class {
+    func getRecipes(for food: String?, callback: @escaping ([Recipe]) -> Void)
+}
+
+final class FavoritesRecipesListRepository: FavoritesRecipesListRepositoryType {
 
     private let stack: CoredataStack
 

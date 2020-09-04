@@ -20,7 +20,7 @@ final class DetailViewModel {
             favoriteState?(isFavorite)
         }
     }
-
+    
     // MARK: - Init
         
     init(
@@ -66,9 +66,9 @@ final class DetailViewModel {
         }
     }
     
-    //    func didPressGetDirection() -> String {
-    //        return recipe.originalRecipeURL
-    //    }
+    func didPressGetDirection() -> String {
+        return recipe.originalRecipeURL
+    }
     
     // MARK: - Helpers
     
@@ -78,8 +78,7 @@ final class DetailViewModel {
     }
     
     private func deleteFromFavorite() {
+        isFavorite = false
         favoritesRecipesListRepository.deleteRecipe(for: recipe, id: recipe.url)
     }
-    
-
 }

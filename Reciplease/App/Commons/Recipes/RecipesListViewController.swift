@@ -18,12 +18,14 @@ final class RecipesListViewController: UIViewController {
             
     // MARK: - Outlets
     
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak private var tableView: UITableView!
 
+    @IBOutlet weak private var activityIndicator: UIActivityIndicatorView!
+    
     // MARK: - View life cycle
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
 
         self.tableView.rowHeight = 160
         tableView.dataSource = dataSource
@@ -43,6 +45,19 @@ final class RecipesListViewController: UIViewController {
             DispatchQueue.main.async {
                 self?.dataSource.update(with: items)
                 self?.tableView.reloadData()
+            }
+        }
+        
+        viewModel.dataIsLoaded = { [weak self] state in
+            DispatchQueue.main.async {
+                switch state {
+                case false:
+                    self?.tableView.isHidden = true
+                    self?.activityIndicator.startAnimating()
+                case true:
+                    self?.activityIndicator.stopAnimating()
+                    self?.tableView.isHidden = false
+                }
             }
         }
     }

@@ -127,10 +127,52 @@ final class SearchViewModelTests: XCTestCase {
         viewModel.didPressClear()
         waitForExpectations(timeout: 1.0, handler: nil)
     }
+    
+    func testGivenSearchViewModel_WhenDidAdd_ThenIngredientsText_IsCorrectlyReturned() {
+        let delegate = MockSearchViewControllerDelegate()
+        let viewModel = SearchViewModel(delegate: delegate)
+        let expectation = self.expectation(description: "Ingredients Text Returned")
+
+        var counter = 0
+        viewModel.ingredientsText = { text in
+            if counter == 2 {
+                XCTAssertEqual(text, "- chicken")
+                expectation.fulfill()
+            }
+            counter += 1
+        }
+
+        viewModel.viewDidLoad()
+        viewModel.didPressAdd(searchText: "chicken,")
+        waitForExpectations(timeout: 1.0, handler: nil)
+    }
+    
+    func testGivenSearchViewModel_WhenDidPressSearch_ThenIngredientsTextIsEmpty() {
+        let delegate = MockSearchViewControllerDelegate()
+        let viewModel = SearchViewModel(delegate: delegate)
+//        let expectation = self.expectation(description: "Ingredients Text is empty Returned")
+
+        viewModel.ingredientsList = []
+
+        viewModel.didPressSearchForRecipes()
+
+//        XCTAssertNil(result)
+    }
+
+    func testGivenSearchViewModel_WhenDidPressSearch_ThenIngredientsTextIsNotEmpty() {
+        let delegate = MockSearchViewControllerDelegate()
+        let viewModel = SearchViewModel(delegate: delegate)
+        let expectation = self.expectation(description: "Ingredients Text is empty Returned")
+        var ingredients = ["saussage"]
+        
+        let result = viewModel.didPressSearchForRecipes()
+//        XCTAssertEqual(result, delegate.didPressSearch(ingredientsList: ingredients))
+        waitForExpectations(timeout: 1.0, handler: nil)
+    }
 }
 
 fileprivate final class MockSearchViewControllerDelegate: SearchViewControllerDelegate {
-    
-    func didPressSearch() {
+    func didPressSearch(ingredientsList: [String]) {
+        
     }
 }

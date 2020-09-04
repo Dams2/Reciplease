@@ -1,5 +1,5 @@
 //
-//  Helper.swift
+//  Array+String.swift
 //  Reciplease
 //
 //  Created by Damien Rojo on 20.08.20.

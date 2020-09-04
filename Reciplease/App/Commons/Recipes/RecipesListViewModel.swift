@@ -13,8 +13,8 @@ final class RecipesListViewModel {
     // MARK: - Properties
     
     private let ingredientsList: [String]
-    private let searchRecipesListRepository: SearchRecipesListRepository
-    private let favoritesRecipesListRepository: FavoritesRecipesListRepository
+    private let searchRecipesListRepository: RecipesListRepositoryType
+    private let favoritesRecipesListRepository: FavoritesRecipesListRepositoryType
 
     private let actions: Actions
     struct Actions {
@@ -24,8 +24,8 @@ final class RecipesListViewModel {
     init(
         ingredientsList: [String],
         actions: Actions,
-        searchRecipesListRepository: SearchRecipesListRepository,
-        favoritesRecipesListRepository: FavoritesRecipesListRepository
+        searchRecipesListRepository: RecipesListRepositoryType,
+        favoritesRecipesListRepository: FavoritesRecipesListRepositoryType
     ) {
         self.ingredientsList = ingredientsList
         self.actions = actions
@@ -51,22 +51,25 @@ final class RecipesListViewModel {
     // MARK: - Outputs
 
     var items: (([Recipe]) -> Void)?
+    
+    var dataIsLoaded: ((Bool) -> Void)?
 
     enum RecipeItem {
         case research(response: RecipesResponse.Recipe)
     }
-    
-    // MARK: - Helpers
 
     // MARK: - Inputs
 
     func viewDidLoad() {
+        dataIsLoaded?(false)
         if !ingredientsList.isEmpty {
             searchRecipesListRepository.getRecipes(for: ingredientsList.joined(separator: "/")) { [weak self] recipesResponse in
                 recipesResponse.hits.lazy.forEach { self?.recipeItems.append(.research(response: $0.recipe)) }
+                self?.dataIsLoaded?(true)
                 self?.state = true
             }
         } else {
+            dataIsLoaded?(true)
             favoritesRecipesListRepository.getRecipes(for: nil) { [weak self] (recipes) in
                 self?.favoriteRecipes = recipes
                 self?.state = false

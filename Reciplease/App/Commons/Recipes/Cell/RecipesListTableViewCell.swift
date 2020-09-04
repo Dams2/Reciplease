@@ -64,7 +64,7 @@ final class RecipesListTableViewCell: UITableViewCell {
         token = RequestCancellationToken()
         guard let token = token, let url = URL(string: recipe.imageTextURL) else { return }
         recipeImageView.setImage(url: url,
-                                 placeholder: UIImage(named: "recipleaseImage"),
+                                 placeholder: nil,
                                  cancelledBy: token)
     }
 

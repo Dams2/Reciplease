@@ -12,29 +12,29 @@ final class SearchViewController: UIViewController {
     
     // MARK: - Outlets
     
-    @IBOutlet weak var whatsInYourFridgeLabel: UILabel?
+    @IBOutlet weak private var whatsInYourFridgeLabel: UILabel?
     
-    @IBOutlet weak var addButton: UIButton? 
+    @IBOutlet weak private var addButton: UIButton?
     
-    @IBOutlet weak var searchBar: UISearchBar! {
+    @IBOutlet weak private var searchBar: UISearchBar! {
         didSet {
             searchBar.searchTextField.backgroundColor = .white
             searchBar.keyboardType = .alphabet
         }
     }
     
-    @IBOutlet weak var yourIngredientLabel: UILabel!
+    @IBOutlet weak private var yourIngredientLabel: UILabel!
     
-    @IBOutlet weak var clearButton: UIButton! {
+    @IBOutlet weak private var clearButton: UIButton! {
         didSet {
             clearButton.layer.borderWidth = 1
             clearButton.layer.cornerRadius = 5
         }
     }
     
-    @IBOutlet weak var ingredientsTextView: UITextView!
+    @IBOutlet weak private var ingredientsTextView: UITextView!
     
-    @IBOutlet weak var searchForRecipesButton: UIButton!
+    @IBOutlet weak private var searchForRecipesButton: UIButton!
     
     // MARK: - Properties
     
@@ -91,18 +91,18 @@ final class SearchViewController: UIViewController {
     
     // MARK: - Actions
     
-    @IBAction func didPressAddButton(_ sender: UIButton) {
+    @IBAction private func didPressAddButton(_ sender: UIButton) {
         guard let searchText = searchBar.text else { return }
         
         viewModel.didPressAdd(searchText: searchText)
         searchBar.text = ""
     }
     
-    @IBAction func didPressClearButton(_ sender: UIButton) {
+    @IBAction private func didPressClearButton(_ sender: UIButton) {
         viewModel.didPressClear()
     }
     
-    @IBAction func didPressSearchButton(_ sender: UIButton) {
-        viewModel.didPressSearch()
+    @IBAction private func didPressSearchButton(_ sender: UIButton) {
+        viewModel.didPressSearchForRecipes()
     }
 }

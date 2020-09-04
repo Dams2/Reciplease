@@ -26,12 +26,23 @@ final class ScreensTests: XCTestCase {
     }
 
     func testThatCreateRecipesListViewControllerCorrectly() {
-        let viewController = screens.createRecipesListViewController(ingredientsList: ["chicken"], delegate: nil)
+
+        let action = RecipesListViewModel.Actions(didSelectItem: { _ in })
+        
+        let viewController = screens.createRecipesListViewController(ingredientsList: ["chicken"], actions: action)
         XCTAssertNotNil(viewController)
     }
     
-//    func testThatCreateDetailViewControllerCorrectly() {
-//        let viewController = screens.createDetailViewController()
-//        XCTAssertNotNil(viewController)
-//    }
+    func testThatCreateFavoritesRecipesListViewControllerCorrectly() {
+        let action = RecipesListViewModel.Actions(didSelectItem: { _ in })
+        
+        let viewController = screens.createFavoritesRecipesListViewController(actions: action)
+        XCTAssertNotNil(viewController)
+    }
+    
+    func testThatCreateDetailViewControllerCorrectly() {
+        let recipe = Recipe(response: mockRecipesResponse.hits[0].recipe)
+        let viewController = screens.createDetailViewController(for: recipe)
+        XCTAssertNotNil(viewController)
+    }
 }

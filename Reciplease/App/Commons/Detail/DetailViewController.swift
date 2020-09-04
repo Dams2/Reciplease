@@ -27,7 +27,7 @@ final class DetailViewController: UIViewController {
 
     // MARK: - Outlets
     
-    @IBOutlet weak var infoView: UIView!{
+    @IBOutlet weak private var infoView: UIView!{
         didSet {
             infoView.layer.borderWidth = 1
             infoView.layer.cornerRadius = 5
@@ -35,25 +35,25 @@ final class DetailViewController: UIViewController {
         }
     }
     
-    @IBOutlet weak var likesLabel: UILabel!
+    @IBOutlet weak private var likesLabel: UILabel!
     
-    @IBOutlet weak var likesImageView: UIImageView!
+    @IBOutlet weak private var likesImageView: UIImageView!
     
-    @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak private var timeLabel: UILabel!
     
-    @IBOutlet weak var timeImageView: UIImageView!
+    @IBOutlet weak private var timeImageView: UIImageView!
     
-    @IBOutlet weak var recipeImageView: UIImageView!
+    @IBOutlet weak private var recipeImageView: UIImageView!
     
-    @IBOutlet weak var gradientView: GradientView!
+    @IBOutlet weak private var gradientView: GradientView!
     
-    @IBOutlet weak var recipeTitleLabel: UILabel!
+    @IBOutlet weak private var recipeTitleLabel: UILabel!
     
-    @IBOutlet weak var ingredientsLabel: UILabel!
+    @IBOutlet weak private var ingredientsLabel: UILabel!
     
-    @IBOutlet weak var ingredientsTextView: UITextView!
+    @IBOutlet weak private var ingredientsTextView: UITextView!
     
-    @IBOutlet weak var getDirectionsButton: UIButton!
+    @IBOutlet weak private var getDirectionsButton: UIButton!
     
     // MARK: - View life cycle
     
@@ -82,7 +82,6 @@ final class DetailViewController: UIViewController {
     }
     
     // MARK: - Helpers
-
     
     private func bind(to viewModel: DetailViewModel) {
         viewModel.likesImageText = { [weak self] text in
@@ -134,13 +133,12 @@ final class DetailViewController: UIViewController {
 
     // MARK: - Inputs
     
-    @IBAction func didPressGetDirectionsButton(_ sender: UIButton) {
-//        guard let url = URL(string: viewModel.didPressGetDirection()) else { return }
-//        UIApplication.shared.open(url)
+    @IBAction private func didPressGetDirectionsButton(_ sender: UIButton) {
+        guard let url = URL(string: viewModel.didPressGetDirection()) else { return }
+        UIApplication.shared.open(url)
     }
     
     @objc private func saveRecipe() {
-        addToFavoriteBarButtonitem.tintColor = .blue
         viewModel.didPressAddToFavorite()
     }
 }
