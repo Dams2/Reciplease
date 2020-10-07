@@ -30,7 +30,11 @@ final class SearchCoordinator {
     }
 
     private func showSearch() {
-        let viewController = screens.createSearchViewController(delegate: self)
+        let actions = SearchViewModel.Actions { (array) in
+            self.showRecipesResult(ingredientsList: array)
+        }
+        
+        let viewController = screens.createSearchViewController(actions: actions)
         presenter.viewControllers = [viewController]
     }
 
@@ -45,11 +49,5 @@ final class SearchCoordinator {
     private func showDetails(for recipe: Recipe) {
         let viewController = screens.createDetailViewController(for: recipe)
         presenter.pushViewController(viewController, animated: true)
-    }
-}
-
-extension SearchCoordinator: SearchViewControllerDelegate {
-    func didPressSearch(ingredientsList: [String]) {
-        showRecipesResult(ingredientsList: ingredientsList)
     }
 }

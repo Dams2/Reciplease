@@ -50,9 +50,11 @@ final class RecipesListViewModel {
 
     // MARK: - Outputs
 
-    var items: (([Recipe]) -> Void)?
+    var items: InputClosure<[Recipe]>?
     
-    var dataIsLoaded: ((Bool) -> Void)?
+    var dataIsLoaded: InputClosure<Bool>?
+    
+    var recipesArrayIsEmpty: InputClosure<Bool>?
 
     enum RecipeItem {
         case research(response: RecipesResponse.Recipe)
@@ -71,8 +73,13 @@ final class RecipesListViewModel {
         } else {
             dataIsLoaded?(true)
             favoritesRecipesListRepository.getRecipes(for: nil) { [weak self] (recipes) in
-                self?.favoriteRecipes = recipes
-                self?.state = false
+                if recipes.isEmpty {
+                    self?.recipesArrayIsEmpty?(true)
+                } else {
+                    self?.recipesArrayIsEmpty?(false)
+                    self?.favoriteRecipes = recipes
+                    self?.state = false
+                }
             }
         }
     }

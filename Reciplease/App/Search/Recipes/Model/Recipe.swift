@@ -15,5 +15,4 @@ struct Recipe {
     let totalTime: String
     let ingredientLines: String
     let url: String
-//    let calories, totalWeight: String
 }

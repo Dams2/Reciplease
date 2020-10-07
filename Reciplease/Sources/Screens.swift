@@ -19,21 +19,15 @@ public class Screens {
     }
 }
 
-protocol SearchViewControllerDelegate: class {
-    func didPressSearch(ingredientsList: [String])
-}
-
 extension Screens {
-    func createSearchViewController(delegate: SearchViewControllerDelegate?) -> UIViewController {
+    func createSearchViewController(
+        actions: SearchViewModel.Actions
+    ) -> UIViewController {
         let viewController = storyboard.instantiateViewController(withIdentifier: "SearchViewController") as! SearchViewController
-        let viewModel = SearchViewModel(delegate: delegate)
+        let viewModel = SearchViewModel(actions: actions)
         viewController.viewModel = viewModel
         return viewController
     }
-}
-
-protocol RecipesListViewControllerDelegate: class {
-    func didSelect(_ recipe: Recipe)
 }
 
 extension Screens {

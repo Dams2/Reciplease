@@ -73,10 +73,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kUb-Oh-8eQ">
-                                <rect key="frame" x="253.5" y="146" width="60" height="34"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="60" id="2rh-AC-eeN"/>
-                                </constraints>
+                                <rect key="frame" x="258" y="146" width="51" height="34"/>
                                 <fontDescription key="fontDescription" name="ArialRoundedMTBold" family="Arial Rounded MT Bold" pointSize="19"/>
                                 <state key="normal" title="Clear">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -267,20 +264,30 @@
                                 <rect key="frame" x="150" y="274" width="20" height="20"/>
                                 <color key="color" red="0.2450914085" green="0.64033848049999997" blue="0.4980193973" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </activityIndicatorView>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You have to search for recipes and put them in favorites !" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WCC-98-LHM">
+                                <rect key="frame" x="20" y="264.5" width="280" height="39.5"/>
+                                <fontDescription key="fontDescription" name="ArialRoundedMTBold" family="Arial Rounded MT Bold" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="K1s-KD-7D2" firstAttribute="top" secondItem="9ak-Ch-JWS" secondAttribute="top" constant="20" symbolic="YES" id="3dH-mL-Zil"/>
+                            <constraint firstItem="WCC-98-LHM" firstAttribute="centerY" secondItem="9ak-Ch-JWS" secondAttribute="centerY" id="5XV-uo-Hyd"/>
                             <constraint firstAttribute="bottom" secondItem="K1s-KD-7D2" secondAttribute="bottom" constant="20" symbolic="YES" id="JSU-WZ-P0L"/>
                             <constraint firstItem="K1s-KD-7D2" firstAttribute="leading" secondItem="svf-pW-XaA" secondAttribute="leading" id="N6m-Vm-rs2"/>
+                            <constraint firstItem="WCC-98-LHM" firstAttribute="leading" secondItem="9ak-Ch-JWS" secondAttribute="leading" constant="20" id="U89-ZW-jKm"/>
                             <constraint firstItem="K1s-KD-7D2" firstAttribute="trailing" secondItem="svf-pW-XaA" secondAttribute="trailing" id="a5M-Cd-Y3D"/>
                             <constraint firstItem="I4n-b6-aYT" firstAttribute="centerY" secondItem="9ak-Ch-JWS" secondAttribute="centerY" id="bD5-Gs-wS7"/>
+                            <constraint firstAttribute="trailing" secondItem="WCC-98-LHM" secondAttribute="trailing" constant="20" id="u4b-MQ-Gal"/>
                             <constraint firstItem="I4n-b6-aYT" firstAttribute="centerX" secondItem="9ak-Ch-JWS" secondAttribute="centerX" id="x7d-hJ-Br4"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="svf-pW-XaA"/>
                     </view>
                     <connections>
                         <outlet property="activityIndicator" destination="I4n-b6-aYT" id="y1t-HI-UDp"/>
+                        <outlet property="noFavoritesLabel" destination="WCC-98-LHM" id="UP1-zV-aoI"/>
                         <outlet property="tableView" destination="K1s-KD-7D2" id="0yY-kt-97r"/>
                     </connections>
                 </viewController>

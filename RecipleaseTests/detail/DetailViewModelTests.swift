@@ -188,12 +188,12 @@ final class DetailViewModelTests: XCTestCase {
     }
     
     func testGivenDetailViewModel_WhenDidPressAddToFavorite_ThenRecipeIsAlreadyFavorite_IsCorretlyReturned() {
-        let recipe = Recipe(title: "Hot dog",
-        imageTextURL: "https://www.edamam.com/web-img/916/916cfbfecd2cec42aef45990560e06df.jpg",
-        originalRecipeURL: "http://www.edamam.com/ontologies/edamam.owl#recipe_d98b124d8df7b4fabc4bbd99ce686229",
-        totalTime: "15m",
-        ingredientLines: "saussage, ketchup",
-        url: "http://www.saveur.com/article/Recipes/Barbecued-Beef-Brisket")
+        let recipe = Recipe(title: "Roast Sirloin Of Beef",
+        imageTextURL: "https://www.edamam.com/web-img/d37/d376c145f2a59befa7738a2c35caab31.jpg",
+        originalRecipeURL: "http://www.bbcgoodfood.com/recipes/2558/",
+        totalTime: "0m",
+        ingredientLines: "400.0g can beef consommé, 1-1.5kg/2lb 4-3lb 5oz sirloin of beef joint, 2.0 tbsp vegetable oil or beef fat, 1 glass red wine",
+        url: "http://www.bbcgoodfood.com/recipes/2558/")
         let stack = CoredataStack()
         let repository = FavoritesRecipesListRepository(stack: stack)
         let viewModel = DetailViewModel(recipe: recipe,
@@ -215,12 +215,12 @@ final class DetailViewModelTests: XCTestCase {
     }
     
     func testGivenDetailViewModel_WhenDidPressAddToFavorite_ThenRecipeIsNotFavorite_IsCorretlyReturned() {
-        let recipe = Recipe(title: "Hot dog",
-        imageTextURL: "https://www.edamam.com/web-img/916/916cfbfecd2cec42aef45990560e06df.jpg",
-        originalRecipeURL: "http://www.edamam.com/ontologies/edamam.owl#recipe_d98b124d8df7b4fabc4bbd99ce686228",
-        totalTime: "15m",
-        ingredientLines: "saussage, ketchup",
-        url: "http://www.saveur.com/article/Recipes/Barbecued-Beef-Brisket")
+        let recipe = Recipe(title: "Strong Cheese",
+        imageTextURL: "https://www.edamam.com/web-img/53c/53ca837dcd939671920e6ab70ad723a6.jpg",
+        originalRecipeURL: "http://notwithoutsalt.com/strong-cheese/",
+        totalTime: "0m",
+        ingredientLines: "1 lb left-over cheese, at room temperature, 1/4 cup dry white wine, 3 tbsp unsalted butter, softened, 2 tbsp fresh parsley leaves, 1 small clove garlic",
+        url: "http://notwithoutsalt.com/strong-cheese/")
         let stack = CoredataStack()
         let repository = FavoritesRecipesListRepository(stack: stack)
         let viewModel = DetailViewModel(recipe: recipe,
@@ -247,18 +247,13 @@ final class DetailViewModelTests: XCTestCase {
         originalRecipeURL: "http://www.edamam.com/ontologies/edamam.owl#recipe_d98b124d8df7b4fabc4bbd99ce686229",
         totalTime: "15m",
         ingredientLines: "saussage, ketchup",
-        url: "http://www.saveur.com/article/Recipes/Barbecued-Beef-Brisket")
+        url: "http://www.saveur.com/article/Recipes/Barbecued-Beef-Brisket/")
         let stack = CoredataStack()
         let repository = FavoritesRecipesListRepository(stack: stack)
         let viewModel = DetailViewModel(recipe: recipe,
                                         favoritesRecipesListRepository: repository)
-//        let expectation = self.expectation(description: "Get direction returned")
         
         let result = viewModel.didPressGetDirection()
-        
-//        viewModel.viewDidLoad()
-        
         XCTAssertEqual(result, recipe.originalRecipeURL)
-//        waitForExpectations(timeout: 1.0, handler: nil)
     }
 }

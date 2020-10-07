@@ -10,31 +10,9 @@ import Foundation
 
 final class SearchViewModel {
     
-    // MARK: - Properties
-
-    private weak var delegate: SearchViewControllerDelegate?
+    // MARK: - Private Properties
     
-    init(delegate: SearchViewControllerDelegate?) {
-        self.delegate = delegate
-    }
-    
-    // MARK: - Outputs
-    
-    var whatsInYourFridgeText: ((String) -> Void)?
-
-    var searchPlaceholderText: ((String) -> Void)?
-
-    var addText: ((String) -> Void)?
-
-    var yourIngredientsText: ((String) -> Void)?
-
-    var clearText: ((String) -> Void)?
-
-    var ingredientsText: ((String) -> Void)?
-
-    var searchForRecipesText: ((String) -> Void)?
-
-    var ingredientsList: [String] = [] {
+    private var ingredientsList: [String] = [] {
         didSet {
             var text = ingredientsList
             text = text.filter({ $0 != "" })
@@ -42,6 +20,35 @@ final class SearchViewModel {
             ingredientsText?("- \(text.joined(separator: "\n\n- "))")
         }
     }
+    private let actions: Actions
+        
+    struct Actions {
+        let didPressSearch: ([String]) -> Void
+    }
+    
+    // MARK: - Init
+    
+    init(
+        actions: Actions
+    ) {
+        self.actions = actions
+    }
+    
+    // MARK: - Outputs
+    
+    var whatsInYourFridgeText: InputClosure<String>?
+
+    var searchPlaceholderText: InputClosure<String>?
+
+    var addText: InputClosure<String>?
+
+    var yourIngredientsText: InputClosure<String>?
+
+    var clearText: InputClosure<String>?
+
+    var ingredientsText: InputClosure<String>?
+
+    var searchForRecipesText: InputClosure<String>?
 
     // MARK: - Inputs
 
@@ -50,7 +57,7 @@ final class SearchViewModel {
         searchPlaceholderText?("Lemon, Cheese...")
         addText?("Add")
         yourIngredientsText?("Your ingredients :")
-        clearText?("Clear")
+        clearText?(" Clear ")
         ingredientsText?("add ingredients...")
         searchForRecipesText?("Search for recipes")
     }
@@ -70,7 +77,7 @@ final class SearchViewModel {
         if ingredientsList.isEmpty {
             return
         } else {
-            delegate?.didPressSearch(ingredientsList: ingredientsList)
+            actions.didPressSearch(ingredientsList)
         }
     }
 }

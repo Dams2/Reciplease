@@ -22,6 +22,8 @@ final class RecipesListViewController: UIViewController {
 
     @IBOutlet weak private var activityIndicator: UIActivityIndicatorView!
     
+    @IBOutlet weak private var noFavoritesLabel: UILabel!
+    
     // MARK: - View life cycle
     
     override func viewWillAppear(_ animated: Bool) {
@@ -57,6 +59,19 @@ final class RecipesListViewController: UIViewController {
                 case true:
                     self?.activityIndicator.stopAnimating()
                     self?.tableView.isHidden = false
+                }
+            }
+        }
+        
+        viewModel.recipesArrayIsEmpty = { [weak self] state in
+            DispatchQueue.main.async {
+                switch state {
+                case true:
+                    self?.tableView.isHidden = true
+                    self?.noFavoritesLabel.isHidden = false
+                case false:
+                    self?.tableView.isHidden = false
+                    self?.noFavoritesLabel.isHidden = true
                 }
             }
         }

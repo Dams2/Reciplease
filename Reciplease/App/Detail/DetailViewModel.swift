@@ -33,16 +33,16 @@ final class DetailViewModel {
     
     // MARK: - Outputs
     
-    var likesText: ((String) -> Void)?
-    var likesImageText: ((String) -> Void)?
-    var timerText: ((String) -> Void)?
-    var timerImageText: ((String) -> Void)?
-    var recipeImageText: ((String) -> Void)?
-    var recipeTitleText: ((String) -> Void)?
-    var ingredientsText: ((String) -> Void)?
-    var ingredientsListText: ((String) -> Void)?
-    var getDirectionsText: ((String) -> Void)?
-    var favoriteState: ((Bool) -> Void)?
+    var likesText: InputClosure<String>?
+    var likesImageText: InputClosure<String>?
+    var timerText: InputClosure<String>?
+    var timerImageText: InputClosure<String>?
+    var recipeImageText: InputClosure<String>?
+    var recipeTitleText: InputClosure<String>?
+    var ingredientsText: InputClosure<String>?
+    var ingredientsListText: InputClosure<String>?
+    var getDirectionsText: InputClosure<String>?
+    var favoriteState: InputClosure<Bool>?
     
     // MARK: - Inputs
     
@@ -56,12 +56,18 @@ final class DetailViewModel {
         ingredientsListText?("- \(recipe.ingredientLines)")
         getDirectionsText?("Get Directions")
         isFavorite = favoritesRecipesListRepository.isAlreadyFavorite(id: recipe.url)
+        print(recipe.title)
+        print(recipe.imageTextURL)
+        print(recipe.originalRecipeURL)
+        print(recipe.totalTime)
+        print(recipe.ingredientLines)
+        print(recipe.url)
     }
     
     func didPressAddToFavorite() {
         if isFavorite == false {
             AddToFavorite()
-        } else {
+        } else if isFavorite == true {
             deleteFromFavorite()
         }
     }
