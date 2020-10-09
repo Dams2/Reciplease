@@ -11,17 +11,20 @@ import XCTest
 
 final class ScreensTests: XCTestCase {
 
-    var screens: Screens! = nil
-
-    var context: Context! = nil
+    private var screens: Screens! = nil
+    private var context: Context! = nil
+    private var actions: SearchViewModel.Actions!
 
     override func setUp() {
         context = Context()
         screens = Screens(context: context)
+        actions = .init(didPressSearch: { (ingredients) in
+            
+        })
     }
 
     func testThatCreateSearchViewControllerCorrectly() {
-        let viewController = screens.createSearchViewController(delegate: nil)
+        let viewController = screens.createSearchViewController(actions: actions)
         XCTAssertNotNil(viewController)
     }
 

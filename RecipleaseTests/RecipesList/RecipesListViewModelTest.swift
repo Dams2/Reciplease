@@ -11,17 +11,25 @@ import XCTest
 
 final class RecipesListViewModelTest: XCTestCase {
     
+    private var viewModel: RecipesListViewModel!
+    private var searchRepository: MockSearchRecipesListRepository!
+    private var favoritesRepository: MockFavoriteRecipesListRepository!
+   
+    override func setUp() {
+        super.setUp()
+        searchRepository = MockSearchRecipesListRepository()
+        favoritesRepository = MockFavoriteRecipesListRepository()
+        viewModel = RecipesListViewModel(ingredientsList: [""],
+                                         actions: .init(didSelectItem: { _ in
+                                            
+                                         }),
+                                         searchRecipesListRepository: searchRepository,
+                                         favoritesRecipesListRepository: favoritesRepository)
+    }
+        
     func testGivenRecipesListViewModel_WhenViewDidLoad_ThenItemsIsEmpty() {
-        let ingredients: [String] = []
-        let actions = RecipesListViewModel.Actions(didSelectItem: { _ in })
-        let searchRepository = MockSearchRecipesListRepository()
         let recipe = Recipe(response: mockRecipesResponse.hits[0].recipe)
-        let favoritesRepository = MockFavoriteRecipesListRepository()
         favoritesRepository.recipes = [recipe]
-        let viewModel = RecipesListViewModel(ingredientsList: ingredients,
-                                             actions: actions,
-                                             searchRecipesListRepository: searchRepository,
-                                             favoritesRecipesListRepository: favoritesRepository)
         let expectation = self.expectation(description: "Items is empty returned")
 
         let expectedResult: [Recipe] = [recipe]
@@ -37,15 +45,15 @@ final class RecipesListViewModelTest: XCTestCase {
     
     func testGivenRecipesListViewModel_WhenViewDidLoad_ThenItemsIsNotEmpty() {
         let ingredients: [String] = ["chicken"]
-        let actions = RecipesListViewModel.Actions(didSelectItem: { _ in })
         
-        let searchRepository = MockSearchRecipesListRepository()
+        viewModel = RecipesListViewModel(ingredientsList: ingredients,
+                                         actions: .init(didSelectItem: { _ in
+                                        
+                                         }),
+                                         searchRecipesListRepository: searchRepository,
+                                         favoritesRecipesListRepository: favoritesRepository)
         searchRepository.response = mockRecipesResponse
-        let favoritesRepository = MockFavoriteRecipesListRepository()
-        let viewModel = RecipesListViewModel(ingredientsList: ingredients,
-                                             actions: actions,
-                                             searchRecipesListRepository: searchRepository,
-                                             favoritesRecipesListRepository: favoritesRepository)
+    
         let expectation = self.expectation(description: "Items is not empty returned")
 
         let expectedResult: [Recipe] = [Recipe(title: "Chicken Vesuvio",
@@ -74,19 +82,41 @@ final class RecipesListViewModelTest: XCTestCase {
         waitForExpectations(timeout: 1.0, handler: nil)
     }
     
-    func testGivenRecipesListViewModel_WhenDidSelectItem_ThenItemsIsFavorite_IsCorrectyReturned() {
-        let ingredients: [String] = []
-        let actions = RecipesListViewModel.Actions(didSelectItem: { _ in })
-        let searchRepository = MockSearchRecipesListRepository()
-        let recipe = [Recipe(response: mockRecipesResponse.hits[0].recipe),Recipe(response: mockRecipesResponse.hits[1].recipe)]
-        let favoritesRepository = MockFavoriteRecipesListRepository()
-        let viewModel = RecipesListViewModel(ingredientsList: ingredients,
-                                             actions: actions,
-                                             searchRecipesListRepository: searchRepository,
-                                             favoritesRecipesListRepository: favoritesRepository)
+    func testGivenRecipesListViewModel_WhenDidSelectItem_ThenDidSelectFavoritesItem_IsCorrectyReturned() {
+        let expectation = self.expectation(description: "Did Select Favorites Item returned")
+        
+        let recipe = [Recipe(response: mockRecipesResponse.hits[0].recipe),
+                      Recipe(response: mockRecipesResponse.hits[1].recipe)]
+        favoritesRepository.recipes = recipe
+        
+        viewModel = RecipesListViewModel(ingredientsList: [],
+                                         actions: .init(didSelectItem: { (recipe) in
+                                            expectation.fulfill()
+                                         }),
+                                         searchRecipesListRepository: searchRepository,
+                                         favoritesRecipesListRepository: favoritesRepository)
+        
+        
+        viewModel.viewDidLoad()
+        viewModel.didSelectItem(at: 0)
+        waitForExpectations(timeout: 1.0, handler: nil)
+    }
     
-        let result = viewModel.didSelectItem(at: 1)
+    func testGivenRecipesListViewModel_WhenDidSelectItem_ThenDidNotSelectFavoritesItem_IsCorrectyReturned() {
+        let expectation = self.expectation(description: "Did Not Select Favorites Item")
+        
+        searchRepository.response = mockRecipesResponse
+        viewModel = RecipesListViewModel(ingredientsList: [],
+                                         actions: .init(didSelectItem: { (recipe) in
+                                            expectation.fulfill()
+                                         }),
+                                         searchRecipesListRepository: searchRepository,
+                                         favoritesRecipesListRepository: favoritesRepository)
+        
 
+        viewModel.viewDidLoad()
+        viewModel.didSelectItem(at: 1)
+        waitForExpectations(timeout: 1.0, handler: nil)
     }
 }
 
@@ -106,9 +136,9 @@ fileprivate class MockSearchRecipesListRepository: RecipesListRepositoryType {
 }
 
 fileprivate class MockFavoriteRecipesListRepository: FavoritesRecipesListRepositoryType {
-    
+
     var recipes: [Recipe] = []
-    
+
     func getRecipes(for food: String?, callback: @escaping ([Recipe]) -> Void) {
         callback(recipes)
     }

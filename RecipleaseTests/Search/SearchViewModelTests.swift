@@ -10,9 +10,17 @@ import XCTest
 @testable import Reciplease
 
 final class SearchViewModelTests: XCTestCase {
+    
+    private var viewModel: SearchViewModel!
+    
+    override func setUp() {
+        super.setUp()
+        viewModel = SearchViewModel(actions: .init(didPressSearch: { _ in
+            
+        }))
+    }
 
     func testGivenSearchViewModel_WhenViewDidLoad_ThenWhatsInYourFridgeText_IsCorrectlyReturned() {
-        let viewModel = SearchViewModel(delegate: delegate)
         let expectation = self.expectation(description: "Whats In Your Fridge Text Returned")
 
         viewModel.whatsInYourFridgeText = { text in
@@ -25,7 +33,6 @@ final class SearchViewModelTests: XCTestCase {
     }
 
     func testGivenSearchViewModel_WhenViewDidLoad_ThenSearchPlaceholderText_IsCorrectlyReturned() {
-        let viewModel = SearchViewModel(delegate: delegate)
         let expectation = self.expectation(description: "Search Placeholder Text Returned")
 
         viewModel.searchPlaceholderText = { text in
@@ -38,7 +45,6 @@ final class SearchViewModelTests: XCTestCase {
     }
 
     func testGivenSearchViewModel_WhenViewDidLoad_ThenAddText_IsCorrectlyReturned() {
-        let viewModel = SearchViewModel(delegate: delegate)
         let expectation = self.expectation(description: "Add Text Returned")
 
         viewModel.addText = { text in
@@ -51,7 +57,6 @@ final class SearchViewModelTests: XCTestCase {
     }
 
     func testGivenSearchViewModel_WhenViewDidLoad_ThenYourIngredientsText_IsCorrectlyReturned() {
-        let viewModel = SearchViewModel(delegate: delegate)
         let expectation = self.expectation(description: "Your Ingredients Text Returned")
 
         viewModel.yourIngredientsText = { text in
@@ -64,11 +69,10 @@ final class SearchViewModelTests: XCTestCase {
     }
 
     func testGivenSearchViewModel_WhenViewDidLoad_ThenClearText_IsCorrectlyReturned() {
-        let viewModel = SearchViewModel(delegate: delegate)
         let expectation = self.expectation(description: "Clear Text Returned")
 
         viewModel.clearText = { text in
-            XCTAssertEqual(text, "Clear")
+            XCTAssertEqual(text, " Clear ")
             expectation.fulfill()
         }
 
@@ -77,7 +81,6 @@ final class SearchViewModelTests: XCTestCase {
     }
 
     func testGivenSearchViewModel_WhenViewDidLoad_ThenIngredientsText_IsCorrectlyReturned() {
-        let viewModel = SearchViewModel(delegate: delegate)
         let expectation = self.expectation(description: "Ingredients Text Returned")
 
         viewModel.ingredientsText = { text in
@@ -90,7 +93,6 @@ final class SearchViewModelTests: XCTestCase {
     }
 
     func testGivenSearchViewModel_WhenViewDidLoad_ThenSearchForRecipesText_IsCorrectlyReturned() {
-        let viewModel = SearchViewModel(delegate: delegate)
         let expectation = self.expectation(description: "Search For Recipes Text Returned")
 
         viewModel.searchForRecipesText = { text in
@@ -103,7 +105,6 @@ final class SearchViewModelTests: XCTestCase {
     }
 
     func testGivenSearchViewModel_WhenDidPressClear_ThenIngredientsText_IsCorrectlyReturned() {
-        let viewModel = SearchViewModel(delegate: delegate)
         let expectation = self.expectation(description: "Ingredients Text Returned")
 
         var counter = 0
@@ -121,7 +122,6 @@ final class SearchViewModelTests: XCTestCase {
     }
 
     func testGivenSearchViewModel_WhenDidAdd_ThenIngredientsText_IsCorrectlyReturned() {
-        let viewModel = SearchViewModel(delegate: delegate)
         let expectation = self.expectation(description: "Ingredients Text Returned")
 
         var counter = 0
@@ -139,18 +139,29 @@ final class SearchViewModelTests: XCTestCase {
     }
 
     func testGivenSearchViewModel_WhenDidPressSearch_ThenIngredientsTextIsEmpty() {
-        let viewModel = SearchViewModel(delegate: delegate)
-        let ingredients: [String] = []
-
-
+        
+        let actions: SearchViewModel.Actions = .init { _ in
+        }
+        
+        viewModel = SearchViewModel(actions: actions)
+        
+        viewModel.viewDidLoad()
+        viewModel.didPressSearchForRecipes()
     }
 
     func testGivenSearchViewModel_WhenDidPressSearch_ThenIngredientsTextIsNotEmpty() {
-        let viewModel = SearchViewModel()
-        let expectation = self.expectation(description: "Ingredients Text is empty Returned")
-        var ingredients = ["saussage"]
-
-
-        XCTAssertEqual(, delegate.didPressSearch(ingredientsList: ingredients))
+        let expectation = self.expectation(description: "Did Press Search returned")
+        let ingredients = "lemon, cheese"
+        let actions: SearchViewModel.Actions = .init { (ingredients) in
+            expectation.fulfill()
+        }
+        
+        viewModel = SearchViewModel(actions: actions)
+        
+        viewModel.viewDidLoad()
+        viewModel.didPressAdd(searchText: ingredients)
+        viewModel.didPressSearchForRecipes()
+        
+        waitForExpectations(timeout: 1.0, handler: nil)
     }
 }

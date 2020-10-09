@@ -89,7 +89,6 @@ final class RecipesListViewModel {
             guard recipeItems.indices.contains(index) else { return }
             let recip = Recipe(recipeItems: recipeItems[index])
             actions.didSelectItem(recip)
-
         } else {
             guard favoriteRecipes.indices.contains(index) else { return }
             let recipe = favoriteRecipes[index]
